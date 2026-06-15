@@ -1,21 +1,31 @@
 const HeroSection = () => {
+  const CLD = "https://res.cloudinary.com/dgccp9uvu/video/upload";
+  const PUBLIC_ID = "13718948-hd_1920_1080_60fps_aayte6";
+
   return (
-    <section className="relative w-full h-screen overflow-hidden">
-      {/* Background Video */}
-      <iframe
-        src="https://player.cloudinary.com/embed/?cloud_name=dgccp9uvu&public_id=13718948-hd_1920_1080_60fps_aayte6&profile=cld-looping"
-        className="absolute top-1/2 left-1/2 min-h-full min-w-full -translate-x-1/2 -translate-y-1/2 scale-125 pointer-events-none border-0"
-        allow="autoplay; fullscreen"
-      />
+    <section className="relative w-full h-screen overflow-hidden bg-[#0E0F13]">
+      <video
+        className="absolute inset-0 h-full w-full object-cover pointer-events-none"
+        autoPlay
+        muted
+        loop
+        playsInline
+        poster={`${CLD}/so_0,f_auto,q_auto/${PUBLIC_ID}.jpg`}
+        aria-hidden="true"
+      >
+        <source src={`${CLD}/f_webm,q_auto/${PUBLIC_ID}.webm`} type="video/webm" />
+      </video>
 
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-[#0B0F0E]/70" />
 
-      {/* Content */}
+      <div className="absolute inset-0 bg-linear-to-r from-[#0E0F13] via-[#0E0F13]/60 to-[#0E0F13]/15" />
+      <div className="absolute inset-0 bg-linear-to-t from-[#0E0F13]/70 via-transparent to-transparent" />
+
       <div className="relative z-10 flex h-full flex-col justify-center px-8 md:px-16 lg:px-24">
+        <span className="mb-6 block h-0.5 w-16 bg-[#CBA45A]" />
+
         <h1
-          className="text-[#E7F2EE] uppercase leading-[0.82] tracking-[-0.04em] text-[5rem] md:text-[8rem] lg:text-[11rem] max-w-[1200px]"
-          style={{ fontFamily: "Bebas Neue, serif" }}
+          className="text-[#F5F4F1] uppercase leading-[0.85] tracking-[-0.03em] text-[4rem] sm:text-[5.5rem] md:text-[7rem] lg:text-[8rem] max-w-4xl"
+          style={{ fontFamily: "'Bebas Neue', sans-serif" }}
         >
           POWER.
           <br />
@@ -24,17 +34,17 @@ const HeroSection = () => {
           PERFECTION.
         </h1>
 
-        <p className="mt-6 max-w-xl text-[#A0AEA8] text-lg">
+        <p className="mt-6 max-w-xl text-[#94A3B8] text-sm md:text-base tracking-wide font-medium">
           Discover luxury vehicles engineered for performance, elegance, and
           control.
         </p>
 
         <div className="flex gap-4 mt-8">
-          <button className="bg-[#00C46A] text-[#0B0F0E] px-6 py-3 rounded-md font-medium hover:bg-[#00E07A] transition duration-300">
+          <button className="bg-[#F5F4F1] text-black text-xs font-bold tracking-widest uppercase px-8 h-12 rounded-sm hover:bg-[#E3C57E] transition-colors duration-300 cursor-pointer shadow-lg shadow-black/40">
             Explore Cars
           </button>
 
-          <button className="border border-[#00C46A] text-[#00C46A] px-6 py-3 rounded-md font-medium hover:bg-[#00C46A]/10 transition duration-300">
+          <button className="bg-white/5 border border-white/20 text-[#F5F4F1] text-xs font-bold tracking-widest uppercase px-8 h-12 rounded-sm hover:bg-white/10 hover:border-white/30 transition duration-300 cursor-pointer backdrop-blur-sm">
             View Deals
           </button>
         </div>

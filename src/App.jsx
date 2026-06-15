@@ -3,15 +3,19 @@ import "./App.css";
 import Login from "./Pages/login.jsx";
 import Home from "./Pages/home.jsx";
 import Cars from "./Pages/cars.jsx";
-import NavBar from "./components/Header.jsx";
 import About from "./Pages/about.jsx";
 import SignUp from "./Pages/signup.jsx";
+import NavBar from "./components/Header.jsx";
+
+
 
 
 function App() {
   return (
     <>
+
       <NavBar />
+      
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />

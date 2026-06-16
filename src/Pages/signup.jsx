@@ -29,6 +29,7 @@ const SignUp = () => {
           name: e.target.name.value,
           email: e.target.email.value,
           pass: e.target.pass.value,
+          image: e.target.pfp.value
         },
       ]);
       navigator("/login");
@@ -92,6 +93,13 @@ const SignUp = () => {
             type="password"
             name="confPass"
             placeholder="Confirm Password"
+          />
+          
+          <input
+            className="h-14 w-full rounded-md border border-white/35 bg-white/10 px-5 text-white placeholder:text-white/55 outline-none transition focus:border-white focus:bg-white/15"
+            type="text"
+            name="pfp"
+            placeholder="Profile Picture (Paste Link)"
           />
 
           <button className="mt-2 h-14 w-full rounded-md bg-white text-black text-sm font-bold uppercase tracking-[0.25em] transition hover:bg-transparent hover:text-white border border-white cursor-pointer">

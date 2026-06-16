@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getLocal, setLocal } from "../utils/localstorage";
 
 const VIDEO_WEBM = "https://res.cloudinary.com/dgccp9uvu/video/upload/f_webm,q_auto/12085618_3840_2160_25fps_w6mc6u.webm";
@@ -6,7 +6,8 @@ const VIDEO_WEBM = "https://res.cloudinary.com/dgccp9uvu/video/upload/f_webm,q_a
 const VIDEO_MP4 = "https://res.cloudinary.com/dgccp9uvu/video/upload/f_mp4,q_auto/12085618_3840_2160_25fps_w6mc6u.mp4";
 
 const Login = () => {
-
+      const navigator = useNavigate()
+    
 
 
 
@@ -21,6 +22,7 @@ const Login = () => {
 
         if(exists){
             setLocal("CurrentUser", exists)
+            navigator("/")
         }
         else{
             alert("Wrong")

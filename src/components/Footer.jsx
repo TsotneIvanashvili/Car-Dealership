@@ -20,24 +20,24 @@ const Footer = () => {
 
             <div className="flex gap-4 mt-7">
               <a
-                href="#"
+                href="https://www.facebook.com/tsotne.ivanashvili.2025"
                 className="w-10 h-10 border border-white/20 flex items-center justify-center rounded-full text-[#94A3B8] hover:text-white hover:border-white transition"
               >
                 <i className="fa-brands fa-facebook-f"></i>
               </a>
 
               <a
-                href="#"
+                href="https://www.instagram.com/tsottneee_/"
                 className="w-10 h-10 border border-white/20 flex items-center justify-center rounded-full text-[#94A3B8] hover:text-white hover:border-white transition"
               >
                 <i className="fa-brands fa-instagram"></i>
               </a>
 
               <a
-                href="#"
+                href="https://www.linkedin.com/in/tsotne-ivanashvili-192b09351/"
                 className="w-10 h-10 border border-white/20 flex items-center justify-center rounded-full text-[#94A3B8] hover:text-white hover:border-white transition"
               >
-                <i className="fa-brands fa-x-twitter"></i>
+                <i class="fa-brands fa-linkedin"></i>
               </a>
             </div>
           </div>

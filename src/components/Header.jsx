@@ -1,34 +1,38 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { getLocal } from "../utils/localstorage";
 
 const links = [
   { to: "/", label: "Home" },
   { to: "/products", label: "Cars" },
   { to: "/about", label: "About Us" },
+  {to: "/cart", label: "Cart"}
 ];
 
 const NavBar = () => {
-  const [searchOpen, setSearchOpen] = useState(false);
-  const inputRef = useRef(null);
+  const loaction = useLocation()
+  let [user, setUser] = useState(null)
 
-  useEffect(() => {
-    if (searchOpen) inputRef.current?.focus();
-  }, [searchOpen]);
 
+  
 
   useEffect( () => {
-    
-    
+    if(location.pathname === "/"){
+      setUser(getLocal("CurrentUser"))
+    }
+  
 
-  }, [getLocal("CurrentUser")])
+  }, [location.pathname])
+
+  console.log(user);
+  
 
   return (
     <nav className="sticky top-0 z-50 h-20 border-b  bg-[#010619b2] px-8 backdrop-blur-md transition-colors duration-300">
-      <div className="mx-auto flex h-full w-full max-w-360 items-center justify-between">
+      <div className=" flex h-full w-full items-center justify-around">
         <Link
           to="/"
-          className="text-xl font-black uppercase tracking-[0.25em] text-[#F5F4F1] transition-opacity hover:opacity-90"
+          className="text-2xl font-black uppercase tracking-[0.25em] text-[#F5F4F1] transition-opacity hover:opacity-90"
         >
           Dealership
         </Link>
@@ -39,7 +43,7 @@ const NavBar = () => {
               to={to}
               end={to === "/"}
               className={({ isActive }) =>
-                `relative text-xs font-semibold uppercase tracking-widest transition duration-300 ${
+                `relative text-m font-semibold uppercase tracking-widest transition duration-300 ${
                   isActive
                     ? "text-[#F5F4F1]"
                     : "text-[#94A3B8] hover:text-[#F5F4F1]"
@@ -57,45 +61,24 @@ const NavBar = () => {
         </div>
 
         <div className="flex items-center gap-6">
-          <div className="relative flex h-10 items-center">
-            <input
-              ref={inputRef}
-              type="text"
-              placeholder="Search Cars..."
-              onKeyDown={(e) => e.key === "Escape" && setSearchOpen(false)}
-              className={`absolute right-0 h-10 rounded-sm border border-white/10 bg-[#16181F] pr-12 text-sm text-[#F5F4F1] shadow-xl outline-none placeholder:text-[#94A3B8]/50 transition-all duration-300 ease-in-out focus:border-[#CBA45A]/50 ${
-                searchOpen
-                  ? "w-64 px-4 opacity-100 pointer-events-auto"
-                  : "w-0 opacity-0 pointer-events-none"
-              }`}
-            />
-
-            <button
-              onClick={() => setSearchOpen((open) => !open)}
-              className="z-20 flex h-10 w-10 items-center justify-center text-[#94A3B8] transition-colors hover:text-[#F5F4F1] cursor-pointer"
-              aria-label={searchOpen ? "Close search" : "Open search"}
-            >
-              <i
-                className={`fa-solid ${
-                  searchOpen ? "fa-xmark" : "fa-magnifying-glass"
-                } text-sm`}
-              ></i>
-            </button>
-          </div>
-
           <Link
-            to="/login"
-            className="text-xs font-semibold uppercase tracking-widest text-[#94A3B8] transition duration-300 hover:text-[#F5F4F1]"
+            to={`${
+              user ? `/profile` : "/signup" 
+            }`}
+            className={
+              user ? ` `: "text-xs font-semibold uppercase tracking-widest text-[#94A3B8] transition duration-300 hover:text-[#F5F4F1]"
+            }
           >
-            Sign In
+            {
+              user ? <img src={user.image} className="w-15 rounded-[2000px]" alt="" />: "Sign Up"
+            }
+
           </Link>
 
-          <Link
-            to="/cart"
-            className="flex h-10 items-center rounded-sm bg-[#F5F4F1] px-6 text-xs font-bold uppercase tracking-widest text-black shadow-lg shadow-black/20 transition-colors duration-300 hover:bg-[#E3C57E]"
-          >
-            Cart
-          </Link>
+
+          
+
+          
         </div>
       </div>
     </nav>

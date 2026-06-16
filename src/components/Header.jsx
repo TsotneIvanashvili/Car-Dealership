@@ -24,11 +24,10 @@ const NavBar = () => {
 
   }, [location.pathname])
 
-  console.log(user);
   
 
   return (
-    <nav className="sticky top-0 z-50 h-20 border-b  bg-[#010619b2] px-8 backdrop-blur-md transition-colors duration-300">
+    <nav className="sticky top-0 z-50 h-20 border-b border-[#272727]  bg-[#010619b2] px-8 backdrop-blur-md transition-colors duration-300">
       <div className=" flex h-full w-full items-center justify-around">
         <Link
           to="/"
@@ -66,11 +65,11 @@ const NavBar = () => {
               user ? `/profile` : "/signup" 
             }`}
             className={
-              user ? ` `: "text-xs font-semibold uppercase tracking-widest text-[#94A3B8] transition duration-300 hover:text-[#F5F4F1]"
+              user ? ` `: "text-md font-semibold uppercase tracking-widest text-[#94A3B8] transition duration-300 hover:text-[#F5F4F1]"
             }
           >
             {
-              user ? <img src={user.image} className="w-15 rounded-[2000px]" alt="" />: "Sign Up"
+              user ? <img src={user.image} alt={user.name} className="w-15 rounded-[2000px] text-white " />: "Sign Up"
             }
 
           </Link>
@@ -79,7 +78,7 @@ const NavBar = () => {
           
 
           
-        </div>
+        </div>  
       </div>
     </nav>
   );

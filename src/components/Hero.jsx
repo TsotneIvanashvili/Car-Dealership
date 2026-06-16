@@ -39,7 +39,7 @@ const HeroSection = () => {
         </p>
 
         <div className="flex gap-4 mt-8">
-          <button className="bg-[#F5F4F1] text-black text-xs font-bold tracking-widest uppercase px-8 h-12 rounded-sm hover:bg-transparent border-2 border-white hover:text-white transition-colors duration-300 cursor-pointer shadow-lg shadow-black/40">
+          <button className="bg-[#F5F4F1] text-black text-md font-bold tracking-widest uppercase px-8 h-12 rounded-sm hover:bg-transparent border-2 border-white hover:text-white transition-colors duration-300 cursor-pointer shadow-lg shadow-black/40">
             Explore Cars
           </button>
 

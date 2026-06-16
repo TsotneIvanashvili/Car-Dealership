@@ -3,7 +3,7 @@ const HeroSection = () => {
   const PUBLIC_ID = "13718948-hd_1920_1080_60fps_aayte6";
 
   return (
-    <section className="relative w-full h-screen overflow-hidden bg-[#0E0F13]">
+    <section className="relative w-full h-screen overflow-hidden bg-[#0E0F13] border-none">
       <video
         className="absolute inset-0 h-full w-full object-cover pointer-events-none"
         autoPlay
@@ -18,10 +18,9 @@ const HeroSection = () => {
 
 
       <div className="absolute inset-0 bg-linear-to-r from-[#0E0F13] via-[#0E0F13]/60 to-[#0E0F13]/15" />
-      <div className="absolute inset-0 bg-linear-to-t from-[#0E0F13]/70 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-linear-to-t from-[#010619] via-transparent to-transparent" />
 
       <div className="relative z-10 flex h-full flex-col justify-center px-8 md:px-16 lg:px-24">
-        <span className="mb-6 block h-0.5 w-16 bg-[#CBA45A]" />
 
         <h1
           className="text-[#F5F4F1] uppercase leading-[0.85] tracking-[-0.03em] text-[4rem] sm:text-[5.5rem] md:text-[7rem] lg:text-[8rem] max-w-4xl"
@@ -40,13 +39,11 @@ const HeroSection = () => {
         </p>
 
         <div className="flex gap-4 mt-8">
-          <button className="bg-[#F5F4F1] text-black text-xs font-bold tracking-widest uppercase px-8 h-12 rounded-sm hover:bg-[#E3C57E] transition-colors duration-300 cursor-pointer shadow-lg shadow-black/40">
+          <button className="bg-[#F5F4F1] text-black text-xs font-bold tracking-widest uppercase px-8 h-12 rounded-sm hover:bg-transparent border-2 border-white hover:text-white transition-colors duration-300 cursor-pointer shadow-lg shadow-black/40">
             Explore Cars
           </button>
 
-          <button className="bg-white/5 border border-white/20 text-[#F5F4F1] text-xs font-bold tracking-widest uppercase px-8 h-12 rounded-sm hover:bg-white/10 hover:border-white/30 transition duration-300 cursor-pointer backdrop-blur-sm">
-            View Deals
-          </button>
+        
         </div>
       </div>
     </section>

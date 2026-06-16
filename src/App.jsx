@@ -6,6 +6,7 @@ import Cars from "./Pages/cars.jsx";
 import About from "./Pages/about.jsx";
 import SignUp from "./Pages/signup.jsx";
 import NavBar from "./components/Header.jsx";
+import Footer from "./components/Footer.jsx";
 
 
 
@@ -25,7 +26,7 @@ function App() {
       </Routes>
 
       
-
+    <Footer/>
 
     </>
   )

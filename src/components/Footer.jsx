@@ -37,7 +37,7 @@ const Footer = () => {
                 href="https://www.linkedin.com/in/tsotne-ivanashvili-192b09351/"
                 className="w-10 h-10 border border-white/20 flex items-center justify-center rounded-full text-[#94A3B8] hover:text-white hover:border-white transition"
               >
-                <i class="fa-brands fa-linkedin"></i>
+                <i className="fa-brands fa-linkedin"></i>
               </a>
             </div>
           </div>

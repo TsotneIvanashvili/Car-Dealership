@@ -1,37 +1,20 @@
-import carsData from "../utils/cars";
+import carsData from "../utils/cars.js"
 
-const fallbackImage =
-  "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=600&q=80";
-
+const fallbackImage ="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=600&q=80";
 const getImageUrl = (image) => {
   if (!image) return fallbackImage;
 
-  const cleanImage = image.trim();
-
-  if (cleanImage.startsWith("http")) {
-    return cleanImage;
+  if (image.startsWith("http")) {
+    return image;
   }
 
-  return `${import.meta.env.BASE_URL}${cleanImage.replace(/^\/+/, "")}`;
+  return image.startsWith("/") ? image : `/${image}`;
 };
 
 const Cars = () => {
   return (
     <div className="min-h-screen bg-[#07090e] text-slate-100 antialiased font-sans">
-      <header className="border-b border-slate-800/60 bg-[#090d16]/90 backdrop-blur-md sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex items-center justify-between">
-          <div>
-            <p className="text-[10px] font-bold tracking-widest text-amber-500 uppercase">
-              Premium Inventory
-            </p>
-
-            <h1 className="text-2xl font-extrabold tracking-tight text-white mt-0.5">
-              Available Cars: {carsData.length}
-            </h1>
-          </div>
-        </div>
-      </header>
-
+      
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {carsData.map((car) => {
@@ -57,7 +40,7 @@ const Cars = () => {
                   </div>
 
                   <div className="absolute top-3 right-3 bg-slate-950/80 backdrop-blur text-[10px] text-slate-200 px-2 py-0.5 font-medium rounded flex items-center gap-1">
-                    <span className="text-amber-400">★</span>{" "}
+                    <span className="text-amber-400">★</span>
                     {car.rating.toFixed(1)}
                   </div>
                 </div>

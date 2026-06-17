@@ -9,6 +9,7 @@ import NavBar from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
 import Cart from "./Pages/cart.jsx";
 import Profile from "./Pages/profile.jsx";
+import NotFound from "./Pages/NotFound.jsx";
 
 
 
@@ -20,6 +21,8 @@ function App() {
       <NavBar />
       
       <Routes>
+
+        <Route path="*" element={<NotFound />} />
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/cars" element={<Cars />} />

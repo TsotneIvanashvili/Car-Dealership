@@ -62,7 +62,7 @@ const About = () => {
                 </h4>
               </div>
 
-              {/* Put whatever you want under this */}
+
             </Card>
           ))}
         </CardSwap>

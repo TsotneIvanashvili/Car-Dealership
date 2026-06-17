@@ -1,86 +1,74 @@
-import { useEffect, useRef, useState } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { getLocal } from "../utils/localstorage";
-
-const links = [
-  { to: "/", label: "Home" },
-  { to: "/products", label: "Cars" },
-  { to: "/about", label: "About Us" },
-  {to: "/cart", label: "Cart"}
-];
+import StaggeredMenu from "./Animated/StaggeredMenu";
 
 const NavBar = () => {
-  const loaction = useLocation()
-  let [user, setUser] = useState(null)
+  const location = useLocation();
+  const [user, setUser] = useState(null);
 
+  useEffect(() => {
+    setUser(getLocal("CurrentUser"));
+  }, [location.pathname]);
 
-  
+  const menuItems = [
+    {
+      label: "Home",
+      ariaLabel: "Go to home page",
+      link: "/",
+    },
+    {
+      label: "Cars",
+      ariaLabel: "View all cars",
+      link: "/products",
+    },
+    {
+      label: "About",
+      ariaLabel: "Learn about us",
+      link: "/about",
+    },
+    {
+      label: "Cart",
+      ariaLabel: "View your cart",
+      link: "/cart",
+    },
+    {
+      label: user ? "Profile" : "Sign Up",
+      ariaLabel: user ? "Open your profile" : "Create an account",
+      link: user ? "/profile" : "/signup",
+    },
+  ];
 
-  useEffect( () => {
-    if(location.pathname === "/"){
-      setUser(getLocal("CurrentUser"))
-    }
-  
-
-  }, [location.pathname])
-
-  
+  const socialItems = [
+    {
+      label: "Instagram",
+      link: "https://instagram.com",
+    },
+    {
+      label: "Facebook",
+      link: "https://facebook.com",
+    },
+    {
+      label: "LinkedIn",
+      link: "https://linkedin.com",
+    },
+  ];
 
   return (
-    <nav className="sticky top-0 z-50 h-20 border-b border-[#272727]  bg-[#010619b2] px-8 backdrop-blur-md transition-colors duration-300">
-      <div className=" flex h-full w-full items-center justify-around">
-        <Link
-          to="/"
-          className="text-2xl font-black uppercase tracking-[0.25em] text-[#F5F4F1] transition-opacity hover:opacity-90"
-        >
-          Dealership
-        </Link>
-        <div className="flex items-center gap-10">
-          {links.map(({ to, label }) => (
-            <NavLink
-              key={to}
-              to={to}
-              end={to === "/"}
-              className={({ isActive }) =>
-                `relative text-m font-semibold uppercase tracking-widest transition duration-300 ${
-                  isActive
-                    ? "text-[#F5F4F1]"
-                    : "text-[#94A3B8] hover:text-[#F5F4F1]"
-                }`
-              }
-            >
-              
-                <>
-                  {label}
-                  
-                </>
-              
-            </NavLink>
-          ))}
-        </div>
-
-        <div className="flex items-center gap-6">
-          <Link
-            to={`${
-              user ? `/profile` : "/signup" 
-            }`}
-            className={
-              user ? ` `: "text-md font-semibold uppercase tracking-widest text-[#94A3B8] transition duration-300 hover:text-[#F5F4F1]"
-            }
-          >
-            {
-              user ? <img src={user.image} alt={user.name} className="w-15 rounded-[2000px] text-white " />: "Sign Up"
-            }
-
-          </Link>
-
-
-          
-
-          
-        </div>  
-      </div>
-    </nav>
+    <StaggeredMenu
+      position="right"
+      items={menuItems}
+      socialItems={socialItems}
+      displaySocials={true}
+      displayItemNumbering={true}
+    
+      menuButtonColor="#F5F4F1"
+      openMenuButtonColor="#F5F4F1"
+      accentColor="blue"
+      logoText="Dealership"
+      logoUrl="/Main/Logo.png"
+      isFixed={true}
+    />
   );
 };
 

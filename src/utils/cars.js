@@ -445,7 +445,7 @@ const carsData = [
     price: 104000,
     images: [
       "../public/CarImages/Taycan/2025-porsche-taycan-4s-102-68765ba7051b9.avif",
-      ". /assets/CarImages/Taycan/2025-porsche-taycan-4s-108-6862bce116e06.avif",
+      "../public/CarImages/Taycan/2025-porsche-taycan-4s-108-6862bce116e06.avif",
       "../public/CarImages/Taycan/2025-porsche-taycan-4s-128-6862bbb5babf9.avif",
       "../public/CarImages/Taycan/2025-porsche-taycan-4s-136-6862bceceded1.avif",
       "../public/CarImages/Taycan/2025-porsche-taycan-4s-141-6862bced58965.avif",

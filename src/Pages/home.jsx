@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "../App.css";
 import HeroSection from "../components/Hero";
 import { Link } from "react-router-dom";
@@ -34,8 +34,53 @@ const carNames = [
   "FERRARI",
 ];
 
-
 const txt = carNames.join("   •   ");
+
+const RevealText = ({
+  children,
+  as: Tag = "div",
+  className = "",
+  style = {},
+  delay = "0ms",
+}) => {
+  const textRef = useRef(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      {
+        threshold: 0.3,
+      }
+    );
+
+    if (textRef.current) {
+      observer.observe(textRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  return (
+    <Tag
+      ref={textRef}
+      className={`text-reveal ${visible ? "text-visible" : ""} ${className}`}
+      style={{
+        ...style,
+        transitionDelay: delay,
+      }}
+    >
+      {children}
+    </Tag>
+  );
+};
 
 const HomePage = () => {
   const [index, setIndex] = useState(0);
@@ -62,12 +107,13 @@ const HomePage = () => {
         ></div>
 
         <div className="relative flex flex-col items-center justify-center gap-10 bg-[#010619] pt-6 pb-20">
-          <h2
+          <RevealText
+            as="h2"
             className="text-center text-5xl uppercase text-white opacity-95"
             style={{ fontFamily: "Bebas Neue, sans-serif" }}
           >
             Featured Brands
-          </h2>
+          </RevealText>
 
           <div
             className="relative"
@@ -87,8 +133,6 @@ const HomePage = () => {
         </div>
       </section>
 
-
-
       <div className="relative h-screen w-full overflow-hidden bg-[#0E0F13]">
         {cars.map((car, i) => (
           <div
@@ -106,17 +150,21 @@ const HomePage = () => {
         <div className="absolute inset-0 h-200 bg-linear-to-b from-[#010619] via-transparent to-transparent"></div>
 
         <div className="relative z-10 flex h-full items-center px-8 md:px-16 lg:px-24">
-          <div
-            key={index}
-            className="max-w-2xl animate-[fadeSlide_1s_ease-in-out] transition-all duration-700"
-          >
-            <h3 className="font-sans text-5xl font-black uppercase text-[#F5F4F1] md:text-7xl lg:text-8xl">
+          <div key={index} className="max-w-2xl">
+            <RevealText
+              as="h3"
+              className="font-sans text-5xl font-black uppercase text-[#F5F4F1] md:text-7xl lg:text-8xl"
+            >
               {cars[index].name}
-            </h3>
+            </RevealText>
 
-            <p className="mt-6 text-sm font-medium text-[#94A3B8] md:text-base">
+            <RevealText
+              as="p"
+              delay="200ms"
+              className="mt-6 text-sm font-medium text-[#94A3B8] md:text-base"
+            >
               {cars[index].description}
-            </p>
+            </RevealText>
 
             <div className="mt-10">
               <Link

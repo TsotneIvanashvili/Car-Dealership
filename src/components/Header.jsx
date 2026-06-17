@@ -20,7 +20,7 @@ const NavBar = () => {
     {
       label: "Cars",
       ariaLabel: "View all cars",
-      link: "/products",
+      link: "/cars",
     },
     {
       label: "About",

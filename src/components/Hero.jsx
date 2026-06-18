@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "./comp.css"
+import "./comp.css";
 
 const HeroSection = () => {
   const CLD = "https://res.cloudinary.com/dgccp9uvu/video/upload";
@@ -16,14 +16,18 @@ const HeroSection = () => {
         poster={`${CLD}/so_0,f_auto,q_auto/${PUBLIC_ID}.jpg`}
         aria-hidden="true"
       >
-        <source src={`${CLD}/f_webm,q_auto/${PUBLIC_ID}.webm`} type="video/webm" />
+        <source
+          src={`${CLD}/f_webm,q_auto/${PUBLIC_ID}.webm`}
+          type="video/webm"
+        />
       </video>
 
+      <div className="absolute inset-0 bg-linear-to-r from-[#0e0f1398] via-[#0E0F13]/30 to-[#0E0F13]/15" />
+              <div className="absolute inset-0 bg-linear-to-t h-80 top-150  from-[#010619f9]"  />
 
-      <div className="absolute inset-0 bg-linear-to-r from-[#0E0F13] via-[#0E0F13]/60 to-[#0E0F13]/15" />
+      
 
       <div className="relative z-10 flex h-full flex-col justify-center px-8 md:px-16 lg:px-24">
-
         <h1
           className="text-[#F5F4F1] uppercase leading-[0.85] tracking-[-0.03em] text-[4rem] sm:text-[5.5rem] md:text-[7rem] lg:text-[8rem] max-w-4xl animate-[slideRight_1s_ease-out_forwards] "
           style={{ fontFamily: "'Bebas Neue', sans-serif" }}
@@ -36,15 +40,17 @@ const HeroSection = () => {
         </h1>
 
         <p className="mt-6 max-w-xl text-[#94A3B8] text-sm md:text-base tracking-wide font-medium opacity-0 animate-[slideRight_1s_ease-out_500ms_forwards]">
-  Discover luxury vehicles engineered for performance, elegance, and control.
-</p>
+          Discover luxury vehicles engineered for performance, elegance, and
+          control.
+        </p>
 
         <div className="flex gap-4 mt-8">
-          <Link to={"/cars"} className="bg-[#F5F4F1] flex items-center justify-center text-black animate-[slideRight_1s_ease-out_700ms_forwards] opacity-0 text-md font-bold tracking-widest uppercase px-8 h-12 rounded-sm hover:bg-transparent border-2 border-white hover:text-white transition-colors duration-300 cursor-pointer shadow-lg shadow-black/40">
+          <Link
+            to={"/cars"}
+            className="bg-[#F5F4F1] flex items-center justify-center text-black animate-[slideRight_1s_ease-out_700ms_forwards] opacity-0 text-md font-bold tracking-widest uppercase px-8 h-12 rounded-sm hover:bg-transparent border-2 border-white hover:text-white transition-colors duration-300 cursor-pointer shadow-lg shadow-black/40"
+          >
             Explore Cars
           </Link>
-
-        
         </div>
       </div>
     </section>

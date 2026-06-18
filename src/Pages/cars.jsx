@@ -48,7 +48,7 @@ const Cars = () => {
 
     buttonTimeouts.current[carId] = setTimeout(() => {
       setButtonStatus((prev) =>
-        prev.id === carId ? { id: null, type: "" } : prev
+        prev.id === carId ? { id: null, type: "" } : prev,
       );
     }, 1200);
   };
@@ -65,7 +65,7 @@ const Cars = () => {
         return prevCart.map((item) =>
           item.id === car.id
             ? { ...item, quantity: Math.min(item.quantity + 1, 2) }
-            : item
+            : item,
         );
       }
 
@@ -128,7 +128,7 @@ const Cars = () => {
 
   const years = useMemo(() => {
     return [...new Set(carsData.map((car) => car.year).filter(Boolean))].sort(
-      (a, b) => b - a
+      (a, b) => b - a,
     );
   }, []);
 
@@ -192,7 +192,10 @@ const Cars = () => {
   }, [currentPage, totalPages]);
 
   const startIndex = (currentPage - 1) * carsPerPage;
-  const paginatedCars = filteredCars.slice(startIndex, startIndex + carsPerPage);
+  const paginatedCars = filteredCars.slice(
+    startIndex,
+    startIndex + carsPerPage,
+  );
 
   const visibleStart = filteredCars.length === 0 ? 0 : startIndex + 1;
   const visibleEnd = Math.min(startIndex + carsPerPage, filteredCars.length);
@@ -200,7 +203,7 @@ const Cars = () => {
   return (
     <div className="min-h-screen bg-[#07090e] text-slate-100 antialiased">
       <section className="px-5 pt-16 pb-10 sm:px-6 md:px-12 lg:px-16 xl:px-20">
-        <div className="mx-auto max-w-[1500px]">
+        <div className="mx-auto max-w-375">
           <div className="mb-12 flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
             <div>
               <div className="mb-5 flex items-center gap-5">
@@ -211,7 +214,7 @@ const Cars = () => {
                 </p>
               </div>
 
-              <h1 className="text-5xl font-black uppercase leading-[0.8] tracking-[-0.05em] text-[#F5F0E6] sm:text-6xl md:text-7xl">
+              <h1 className="text-5xl font-black uppercase leading-[0.8] tracking-tighter text-[#F5F0E6] sm:text-6xl md:text-7xl">
                 Find Your Car
               </h1>
             </div>
@@ -259,14 +262,12 @@ const Cars = () => {
                       Search
                     </label>
 
-                    <div className="flex h-[52px] items-center gap-3 border border-[#263247] bg-[#07090e] px-4 transition focus-within:border-[#3157FF]">
+                    <div className="flex h-13 items-center gap-3 border border-[#263247] bg-[#07090e] px-4 transition focus-within:border-[#3157FF]">
                       <i className="fa-solid fa-magnifying-glass text-[#6F86AA]"></i>
 
                       <input
                         value={filters.search}
-                        onChange={(e) =>
-                          updateFilter("search", e.target.value)
-                        }
+                        onChange={(e) => updateFilter("search", e.target.value)}
                         type="text"
                         placeholder="Brand or model"
                         className="w-full bg-transparent text-sm font-bold text-white outline-none placeholder:text-[#6F86AA]"
@@ -282,7 +283,7 @@ const Cars = () => {
                     <select
                       value={filters.brand}
                       onChange={(e) => updateFilter("brand", e.target.value)}
-                      className="h-[52px] w-full border border-[#263247] bg-[#07090e] px-4 text-sm font-bold text-[#F5F0E6] outline-none transition focus:border-[#3157FF]"
+                      className="h-13 w-full border border-[#263247] bg-[#07090e] px-4 text-sm font-bold text-[#F5F0E6] outline-none transition focus:border-[#3157FF]"
                     >
                       <option value="">All Brands</option>
                       {brands.map((brand) => (
@@ -301,7 +302,7 @@ const Cars = () => {
                     <select
                       value={filters.sort}
                       onChange={(e) => updateFilter("sort", e.target.value)}
-                      className="h-[52px] w-full border border-[#263247] bg-[#07090e] px-4 text-sm font-bold text-[#F5F0E6] outline-none transition focus:border-[#3157FF]"
+                      className="h-13 w-full border border-[#263247] bg-[#07090e] px-4 text-sm font-bold text-[#F5F0E6] outline-none transition focus:border-[#3157FF]"
                     >
                       <option value="price-asc">Ascending</option>
                       <option value="price-desc">Descending</option>
@@ -316,7 +317,7 @@ const Cars = () => {
                     <select
                       value={filters.year}
                       onChange={(e) => updateFilter("year", e.target.value)}
-                      className="h-[52px] w-full border border-[#263247] bg-[#07090e] px-4 text-sm font-bold text-[#F5F0E6] outline-none transition focus:border-[#3157FF]"
+                      className="h-13 w-full border border-[#263247] bg-[#07090e] px-4 text-sm font-bold text-[#F5F0E6] outline-none transition focus:border-[#3157FF]"
                     >
                       <option value="">Any Year</option>
                       {years.map((year) => (
@@ -334,10 +335,8 @@ const Cars = () => {
 
                     <select
                       value={filters.fuelType}
-                      onChange={(e) =>
-                        updateFilter("fuelType", e.target.value)
-                      }
-                      className="h-[52px] w-full border border-[#263247] bg-[#07090e] px-4 text-sm font-bold text-[#F5F0E6] outline-none transition focus:border-[#3157FF]"
+                      onChange={(e) => updateFilter("fuelType", e.target.value)}
+                      className="h-13 w-full border border-[#263247] bg-[#07090e] px-4 text-sm font-bold text-[#F5F0E6] outline-none transition focus:border-[#3157FF]"
                     >
                       <option value="">Any Fuel</option>
                       {fuelTypes.map((fuelType) => (
@@ -358,7 +357,7 @@ const Cars = () => {
                       onChange={(e) =>
                         updateFilter("transmission", e.target.value)
                       }
-                      className="h-[52px] w-full border border-[#263247] bg-[#07090e] px-4 text-sm font-bold text-[#F5F0E6] outline-none transition focus:border-[#3157FF]"
+                      className="h-13 w-full border border-[#263247] bg-[#07090e] px-4 text-sm font-bold text-[#F5F0E6] outline-none transition focus:border-[#3157FF]"
                     >
                       <option value="">Any Type</option>
                       {transmissions.map((transmission) => (
@@ -401,21 +400,7 @@ const Cars = () => {
                 </div>
               ) : (
                 <>
-                  <div className="mb-8 flex flex-col justify-between gap-4 border-y border-[#1D2B42] py-5 sm:flex-row sm:items-center">
-                    <p className="text-sm font-bold text-[#8EA6C9]">
-                      Showing{" "}
-                      <span className="text-[#F5F0E6]">{visibleStart}</span>-
-                      <span className="text-[#F5F0E6]">{visibleEnd}</span> of{" "}
-                      <span className="text-[#F5F0E6]">
-                        {filteredCars.length}
-                      </span>{" "}
-                      cars
-                    </p>
 
-                    <p className="text-xs font-black uppercase tracking-[0.25em] text-[#3157FF]">
-                      Page {currentPage} / {totalPages}
-                    </p>
-                  </div>
 
                   <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,360px),1fr))] justify-items-center gap-6">
                     {paginatedCars.map((car) => {
@@ -435,9 +420,9 @@ const Cars = () => {
                       return (
                         <article
                           key={car.id}
-                          className="group w-full max-w-[560px] overflow-hidden rounded-[26px] bg-[#101925] shadow-[0_18px_45px_rgba(0,0,0,0.35)] transition duration-300 hover:-translate-y-1"
+                          className="group w-full max-w-140 overflow-hidden rounded-[26px] bg-[#101925] shadow-[0_18px_45px_rgba(0,0,0,0.35)] transition duration-300 hover:-translate-y-1"
                         >
-                          <div className="relative aspect-[16/10] w-full overflow-hidden rounded-t-[26px] bg-[#0B111D]">
+                          <div className="relative aspect-16/10 w-full overflow-hidden rounded-t-[26px] bg-[#0B111D]">
                             <img
                               src={primaryImg}
                               alt={`${car.brand} ${car.model}`}
@@ -447,7 +432,7 @@ const Cars = () => {
                               }}
                             />
 
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#101925] via-transparent to-black/25"></div>
+                            <div className="absolute inset-0 bg-linear-to-t from-[#101925] via-transparent to-black/25"></div>
 
                             <div className="absolute left-4 top-4 flex h-8 items-center gap-2 rounded-full border border-white/10 bg-[#111827]/85 px-3 backdrop-blur-md">
                               <span className="h-2.5 w-2.5 rounded-full bg-[#38E07B] shadow-[0_0_12px_rgba(56,224,123,0.8)]"></span>
@@ -565,8 +550,8 @@ const Cars = () => {
                                   isMaxQuantity
                                     ? "cursor-not-allowed border border-[#00E676]/40 bg-[#00E676]/10 text-[#00E676]"
                                     : isAdded
-                                    ? "bg-[#00E676] text-black shadow-[0_0_20px_rgba(0,230,118,0.4)]"
-                                    : "bg-[#F5F7FB] text-[#0B111D] hover:bg-[#00E676] hover:text-black"
+                                      ? "bg-[#00E676] text-black shadow-[0_0_20px_rgba(0,230,118,0.4)]"
+                                      : "bg-[#F5F7FB] text-[#0B111D] hover:bg-[#00E676] hover:text-black"
                                 }`}
                               >
                                 {!isMaxQuantity && (
@@ -576,8 +561,8 @@ const Cars = () => {
                                 {isMaxQuantity
                                   ? "Max"
                                   : isAdded
-                                  ? "Added ✓"
-                                  : "Add to Cart"}
+                                    ? "Added ✓"
+                                    : "Add to Cart"}
                               </button>
                             </div>
                           </div>
@@ -626,7 +611,7 @@ const Cars = () => {
                         disabled={currentPage === totalPages}
                         onClick={() =>
                           setCurrentPage((prev) =>
-                            Math.min(prev + 1, totalPages)
+                            Math.min(prev + 1, totalPages),
                           )
                         }
                         className={`h-12 border px-7 text-sm font-black uppercase tracking-[0.22em] transition ${

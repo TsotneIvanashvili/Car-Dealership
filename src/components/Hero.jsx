@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./comp.css"
 
 const HeroSection = () => {
@@ -39,9 +40,9 @@ const HeroSection = () => {
 </p>
 
         <div className="flex gap-4 mt-8">
-          <button className="bg-[#F5F4F1] text-black animate-[slideRight_1s_ease-out_700ms_forwards] opacity-0 text-md font-bold tracking-widest uppercase px-8 h-12 rounded-sm hover:bg-transparent border-2 border-white hover:text-white transition-colors duration-300 cursor-pointer shadow-lg shadow-black/40">
+          <Link to={"/cars"} className="bg-[#F5F4F1] flex items-center justify-center text-black animate-[slideRight_1s_ease-out_700ms_forwards] opacity-0 text-md font-bold tracking-widest uppercase px-8 h-12 rounded-sm hover:bg-transparent border-2 border-white hover:text-white transition-colors duration-300 cursor-pointer shadow-lg shadow-black/40">
             Explore Cars
-          </button>
+          </Link>
 
         
         </div>

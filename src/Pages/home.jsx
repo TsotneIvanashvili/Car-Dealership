@@ -167,7 +167,7 @@ const HomePage = () => {
 
             <div className="mt-10">
               <Link
-                to={"/products"}
+                to={"/cars"}
                 className="group inline-flex h-12 items-center gap-2 rounded-sm border-2 border-white bg-[#F5F4F1] px-8 text-[16px] font-bold tracking-widest text-black shadow-xl transition-colors duration-300 hover:bg-transparent hover:text-white"
               >
                 Browse Cars

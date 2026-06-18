@@ -136,7 +136,7 @@ const HomePage = () => {
 
       <div className="relative h-screen w-full overflow-hidden bg-[#0E0F13]">
 
-                      <div className="absolute inset-0 bg-linear-to-b z-90 h-90 from-[#010619f9]"  />
+                      <div className="absolute inset-0 bg-linear-to-b z-2 h-90 from-[#010619f9]"  />
 
 
         {cars.map((car, i) => (

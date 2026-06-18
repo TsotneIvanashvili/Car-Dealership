@@ -5,6 +5,7 @@ const CarsData = [
     model: "Camry",
     year: 2022,
     price: 28000,
+    quantity: 0,
     images: [
       "/CarImages/TC/toyotaCamry(1).jpg",
       "/CarImages/TC/toyotaCamry(2).jpg",
@@ -28,6 +29,7 @@ const CarsData = [
     model: "3 Series",
     year: 2023,
     price: 42000,
+    quantity: 0,
     images: [
       "/CarImages/BMW3/bmw1.avif",
       "/CarImages/BMW3/bmw2.avif",
@@ -51,6 +53,7 @@ const CarsData = [
     model: "C-Class",
     year: 2023,
     price: 44000,
+    quantity: 0,
     images: [
       "/CarImages/MercC/merc.avif",
       "/CarImages/MercC/merc1.avif",
@@ -75,6 +78,7 @@ const CarsData = [
     model: "A4",
     year: 2023,
     price: 41000,
+    quantity: 0,
     images: [
       "/CarImages/audiA4/audi.avif",
       "/CarImages/audiA4/audi1.avif",
@@ -98,6 +102,7 @@ const CarsData = [
     model: "Model 3",
     year: 2023,
     price: 39000,
+    quantity: 0,
     images: [
       "/CarImages/tesla/tesla1.avif",
       "/CarImages/tesla/tesla2avif.avif",
@@ -121,6 +126,7 @@ const CarsData = [
     model: "Mustang",
     year: 2022,
     price: 43000,
+    quantity: 0,
     images: [
       "/CarImages/mustang/ford1.avif",
       "/CarImages/mustang/ford2.avif",
@@ -144,6 +150,7 @@ const CarsData = [
     model: "Camaro",
     year: 2022,
     price: 31000,
+    quantity: 0,
     images: [
       "/CarImages/chevy/chev1.avif",
       "/CarImages/chevy/chev2.avif",
@@ -167,6 +174,7 @@ const CarsData = [
     model: "M4 Competition",
     year: 2023,
     price: 78000,
+    quantity: 0,
     images: [
       "/CarImages/BMWM4/bmw.avif",
       "/CarImages/BMWM4/bmw1.avif",
@@ -190,6 +198,7 @@ const CarsData = [
     model: "AMG C63",
     year: 2022,
     price: 72000,
+    quantity: 0,
     images: [
       "/CarImages/AMG-C63/amg1.avif",
       "/CarImages/AMG-C63/amg2.avif",
@@ -213,6 +222,7 @@ const CarsData = [
     model: "911 Carrera S",
     year: 2023,
     price: 125000,
+    quantity: 0,
     images: [
       "/CarImages/PorscheCarrera/car1.avif",
       "/CarImages/PorscheCarrera/car2.avif",
@@ -236,6 +246,7 @@ const CarsData = [
     model: "Explorer ST",
     year: 2023,
     price: 54000,
+    quantity: 0,
     images: [
       "/CarImages/Explorer/94b83070-8561-4057-ad87-7d820c6b726a.avif",
       "/CarImages/Explorer/0f0f03c8-cdf6-44ba-b112-cd52790ec140.avif",
@@ -259,6 +270,7 @@ const CarsData = [
     model: "Z Performance",
     year: 2023,
     price: 51000,
+    quantity: 0,
     images: [
       "/CarImages/zPerformance/4b5f69c6-df87-4c88-8521-ed8c7196fd86.avif",
       "/CarImages/zPerformance/1ac54eb7-5bbc-4dba-97f2-53d7f0fa4562.avif",
@@ -282,6 +294,7 @@ const CarsData = [
     model: "RS5 Coupe",
     year: 2023,
     price: 79000,
+    quantity: 0,
     images: [
       "/CarImages/RS5Coupe/2027-audi-rs5-pr113-69972202512a6.avif",
       "/CarImages/RS5Coupe/2027-audi-rs5-interior-pr101-6997240089ae5.avif",
@@ -305,6 +318,7 @@ const CarsData = [
     model: "Macan GTS",
     year: 2022,
     price: 82000,
+    quantity: 0,
     images: [
       "/CarImages/MacanGTS/2026-porsche-macan-gts-ev-102-698b52a40c7e0.avif",
       "/CarImages/MacanGTS/2026-porsche-macan-gts-ev-116-698b52aedc2b6.avif",
@@ -328,6 +342,7 @@ const CarsData = [
     model: "GT-R Nismo",
     year: 2022,
     price: 215000,
+    quantity: 0,
     images: [
       "/CarImages/GTR/2017-Nissan-GT-R-102.avif",
       "/CarImages/GTR/2017-Nissan-GT-R-104.avif",
@@ -351,6 +366,7 @@ const CarsData = [
     model: "X5 M Competition",
     year: 2023,
     price: 112000,
+    quantity: 0,
     images: [
       "/CarImages/X5/2025-bmw-x5-m-competition-107-698e1ad5296c0.avif",
       "/CarImages/X5/2025-bmw-x5-m-competition-107-698e178d0a55f.avif",
@@ -374,6 +390,7 @@ const CarsData = [
     model: "E450 Coupe",
     year: 2023,
     price: 68000,
+    quantity: 0,
     images: [
       "/CarImages/E450/2025-mercedes-benz-e450-all-terrain-108-68e681973864e.avif",
       "/CarImages/E450/2025-mercedes-benz-e450-all-terrain-122-68e6819dcd6b7.avif",
@@ -397,6 +414,7 @@ const CarsData = [
     model: "F-150 Raptor",
     year: 2023,
     price: 85000,
+    quantity: 0,
     images: [
       "/CarImages/Raptor/2024-ford-f-150-raptor-r-202-66feede751693.avif",
       "/CarImages/Raptor/2024-ford-f-150-raptor-r-212-66feede9be2b9.avif",
@@ -420,6 +438,7 @@ const CarsData = [
     model: "e-tron GT",
     year: 2023,
     price: 89000,
+    quantity: 0,
     images: [
       "/CarImages/E-Tron/2025-audi-rs-e-tron-gt-performance-116-67eaaed7e6b0b.avif",
       "/CarImages/E-Tron/2025-audi-rs-e-tron-gt-performance-124-689b43c9c0866.avif",
@@ -443,6 +462,7 @@ const CarsData = [
     model: "Taycan 4S",
     year: 2023,
     price: 104000,
+    quantity: 0,
     images: [
       "/CarImages/Taycan/2025-porsche-taycan-4s-102-68765ba7051b9.avif",
       "/CarImages/Taycan/2025-porsche-taycan-4s-108-6862bce116e06.avif",

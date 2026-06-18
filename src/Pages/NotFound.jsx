@@ -5,11 +5,11 @@ import PixelTrail from "../components/PixelTrail/PixelTrail";
 const NotFound = () => {
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#030712] text-white">
-      <div className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(circle_at_70%_35%,rgba(30,76,140,0.22),transparent_35%),linear-gradient(to_bottom,rgba(3,7,18,0.35),rgba(3,7,18,1))]" />
+      <div className="pointer-events-none absolute inset-0 z-1 bg-[radial-gradient(circle_at_70%_35%,rgba(30,76,140,0.22),transparent_35%),linear-gradient(to_bottom,rgba(3,7,18,0.35),rgba(3,7,18,1))]" />
 
-      <div className="pointer-events-none absolute left-0 top-0 z-[2] h-full w-full bg-[linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-size-[42px_42px]" />
+      <div className="pointer-events-none absolute left-0 top-0 z-2 h-full w-full bg-[linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-size-[42px_42px]" />
 
-      <div className="absolute inset-0 z-[3] opacity-35">
+      <div className="absolute inset-0 z-3 opacity-35">
         <PixelTrail
           gridSize={60}
           trailSize={0.06}

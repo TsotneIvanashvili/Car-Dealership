@@ -106,10 +106,10 @@ const HomePage = () => {
           }}
         ></div>
 
-        <div className="relative flex flex-col items-center justify-center gap-10 bg-[#010619] pt-6 pb-20">
+        <div className="relative flex flex-col items-center justify-center gap-6 md:gap-10 bg-[#010619] pt-6 pb-12 md:pb-20">
           <RevealText
             as="h2"
-            className="text-center text-5xl uppercase text-white opacity-95"
+            className="text-center text-3xl sm:text-4xl md:text-5xl uppercase text-white opacity-95"
             style={{ fontFamily: "Bebas Neue, sans-serif" }}
           >
             Featured Brands
@@ -127,7 +127,7 @@ const HomePage = () => {
             <ScrollVelocity
               texts={[txt]}
               velocity={50}
-              className="border-y-2 border-white p-5 text-4xl font-black uppercase leading-none tracking-widest text-white"
+              className="border-y-2 border-white p-3 sm:p-5 text-2xl sm:text-3xl md:text-4xl font-black uppercase leading-none tracking-widest text-white"
             />
           </div>
         </div>
@@ -153,7 +153,7 @@ const HomePage = () => {
           <div key={index} className="max-w-2xl">
             <RevealText
               as="h3"
-              className="font-sans text-5xl font-black uppercase text-[#F5F4F1] md:text-7xl lg:text-8xl"
+              className="font-sans text-[clamp(1.75rem,7vw,3rem)] font-black uppercase text-[#F5F4F1] md:text-7xl lg:text-8xl"
             >
               {cars[index].name}
             </RevealText>

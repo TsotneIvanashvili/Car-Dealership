@@ -1,11 +1,90 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import carsData from "../utils/cars.js";
-
-const fallbackImage =
-  "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=600&q=80";
+import { getLocal, setLocal } from "../utils/localstorage.js";
 
 const Cars = () => {
   const [filtersOpen, setFiltersOpen] = useState(false);
+  const [cart, setCart] = useState(getLocal("Cart") || []);
+  const [favorites, setFavorites] = useState(getLocal("Favorites") || []);
+
+  const [buttonStatus, setButtonStatus] = useState({
+    id: null,
+    type: "",
+  });
+
+  const buttonTimeouts = useRef({});
+
+  useEffect(() => {
+    setLocal("Cart", cart);
+  }, [cart]);
+
+  useEffect(() => {
+    setLocal("Favorites", favorites);
+  }, [favorites]);
+
+  useEffect(() => {
+    return () => {
+      Object.values(buttonTimeouts.current).forEach((timeout) => {
+        clearTimeout(timeout);
+      });
+    };
+  }, []);
+
+  const showButtonStatus = (carId, type) => {
+    clearTimeout(buttonTimeouts.current[carId]);
+
+    setButtonStatus({
+      id: carId,
+      type,
+    });
+
+    buttonTimeouts.current[carId] = setTimeout(() => {
+      setButtonStatus((prev) =>
+        prev.id === carId ? { id: null, type: "" } : prev
+      );
+    }, 1200);
+  };
+
+  const addToCart = (car) => {
+    const exists = cart.find((item) => item.id === car.id);
+
+    if (exists && exists.quantity >= 2) {
+      return;
+    }
+
+    setCart((prevCart) => {
+      const exists = prevCart.find((item) => item.id === car.id);
+
+      if (exists) {
+        return prevCart.map((item) =>
+          item.id === car.id
+            ? { ...item, quantity: Math.min(item.quantity + 1, 2) }
+            : item
+        );
+      }
+
+      return [...prevCart, { ...car, quantity: 1 }];
+    });
+
+    showButtonStatus(car.id, "added");
+  };
+
+  const isFavorite = (carId) => {
+    return favorites.some((favorite) => favorite.id === carId);
+  };
+
+  const toggleFavorite = (car) => {
+    setFavorites((prevFavorites) => {
+      const exists = prevFavorites.some((favorite) => favorite.id === car.id);
+
+      if (exists) {
+        return prevFavorites.filter((favorite) => favorite.id !== car.id);
+      }
+
+      return [...prevFavorites, car];
+    });
+  };
 
   const [filters, setFilters] = useState({
     search: "",
@@ -64,10 +143,6 @@ const Cars = () => {
     ];
   }, []);
 
-  const conditions = useMemo(() => {
-    return [...new Set(carsData.map((car) => car.condition).filter(Boolean))];
-  }, []);
-
   const filteredCars = useMemo(() => {
     return carsData.filter((car) => {
       const searchValue = filters.search.toLowerCase().trim();
@@ -100,10 +175,7 @@ const Cars = () => {
         return false;
       }
 
-      if (
-        filters.transmission &&
-        car.transmission !== filters.transmission
-      ) {
+      if (filters.transmission && car.transmission !== filters.transmission) {
         return false;
       }
 
@@ -218,8 +290,6 @@ const Cars = () => {
                   </select>
                 </div>
 
-                
-
                 <div>
                   <label className="mb-2 block text-xs font-black uppercase tracking-[0.25em] text-[#6F86AA]">
                     Min Price
@@ -227,9 +297,7 @@ const Cars = () => {
 
                   <input
                     value={filters.minPrice}
-                    onChange={(e) =>
-                      updateFilter("minPrice", e.target.value)
-                    }
+                    onChange={(e) => updateFilter("minPrice", e.target.value)}
                     type="number"
                     placeholder="$20,000"
                     className="h-13 w-full rounded-lg border border-[#203049] bg-[#080D16] px-4 text-sm font-semibold text-white outline-none transition placeholder:text-[#53647F] focus:border-[#F5C542]"
@@ -243,9 +311,7 @@ const Cars = () => {
 
                   <input
                     value={filters.maxPrice}
-                    onChange={(e) =>
-                      updateFilter("maxPrice", e.target.value)
-                    }
+                    onChange={(e) => updateFilter("maxPrice", e.target.value)}
                     type="number"
                     placeholder="$90,000"
                     className="h-13 w-full rounded-lg border border-[#203049] bg-[#080D16] px-4 text-sm font-semibold text-white outline-none transition placeholder:text-[#53647F] focus:border-[#F5C542]"
@@ -278,9 +344,7 @@ const Cars = () => {
 
                   <select
                     value={filters.fuelType}
-                    onChange={(e) =>
-                      updateFilter("fuelType", e.target.value)
-                    }
+                    onChange={(e) => updateFilter("fuelType", e.target.value)}
                     className="h-13 w-full rounded-lg border border-[#203049] bg-[#080D16] px-4 text-sm font-semibold text-[#B8C7E0] outline-none transition focus:border-[#F5C542]"
                   >
                     <option value="">Any Fuel</option>
@@ -441,7 +505,16 @@ const Cars = () => {
         <div className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {filteredCars.map((car) => {
-              const primaryImg = car.images?.[0] || fallbackImage;
+              const primaryImg = car.images?.[0];
+              const favorite = isFavorite(car.id);
+
+              const cartItem = cart.find((item) => item.id === car.id);
+              const isMaxQuantity = cartItem?.quantity >= 2;
+
+              const isAdded =
+                buttonStatus.id === car.id &&
+                buttonStatus.type === "added" &&
+                !isMaxQuantity;
 
               return (
                 <div
@@ -453,19 +526,24 @@ const Cars = () => {
                       src={primaryImg}
                       alt={`${car.brand} ${car.model}`}
                       className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.02]"
-                      onError={(e) => {
-                        e.currentTarget.src = fallbackImage;
-                      }}
                     />
 
-                    <div className="absolute left-3 top-3 rounded border border-amber-500/30 bg-slate-950/80 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-amber-400 backdrop-blur">
-                      {car.condition}
-                    </div>
-
-                    <div className="absolute right-3 top-3 flex items-center gap-1 rounded bg-slate-950/80 px-2 py-0.5 text-[10px] font-medium text-slate-200 backdrop-blur">
-                      <span className="text-amber-400">★</span>
-                      {Number(car.rating).toFixed(1)}
-                    </div>
+                    <button
+                      type="button"
+                      onClick={() => toggleFavorite(car)}
+                      aria-label={
+                        favorite
+                          ? `Remove ${car.brand} ${car.model} from favorites`
+                          : `Add ${car.brand} ${car.model} to favorites`
+                      }
+                      className={`absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full border text-sm transition ${
+                        favorite
+                          ? "border-[#3E66FF] bg-[#3E66FF] text-white"
+                          : "border-[#263247] bg-[#0B111D]/85 text-[#8EA6C9] hover:border-[#3E66FF] hover:text-white"
+                      }`}
+                    >
+                      <i className="fa-solid fa-heart"></i>
+                    </button>
                   </div>
 
                   <div className="flex flex-1 flex-col justify-between p-5">
@@ -474,7 +552,7 @@ const Cars = () => {
                         {car.year} • {car.engine} • {car.horsepower} HP
                       </p>
 
-                      <h2 className="text-lg font-bold tracking-tight text-white transition-colors group-hover:text-amber-400">
+                      <h2 className="text-lg font-bold tracking-tight text-white transition-colors">
                         {car.brand}{" "}
                         <span className="font-light text-slate-300">
                           {car.model}
@@ -506,20 +584,47 @@ const Cars = () => {
                       </div>
                     </div>
 
-                    <div className="mt-5 flex items-center justify-between border-t border-slate-800/60 pt-3">
-                      <div>
-                        <p className="text-[10px] uppercase tracking-wider text-slate-500">
-                          {Number(car.mileage).toLocaleString()} miles
-                        </p>
+                    <div className="mt-5 border-t border-slate-800/60 pt-4">
+                      <div className="mb-4 flex items-end justify-between">
+                        <div>
+                          <p className="text-[10px] uppercase tracking-wider text-slate-500">
+                            {Number(car.mileage).toLocaleString()} miles
+                          </p>
 
-                        <p className="text-lg font-extrabold tracking-tight text-white">
-                          ${Number(car.price).toLocaleString()}
-                        </p>
+                          <p className="text-xl font-extrabold tracking-tight text-white">
+                            ${Number(car.price).toLocaleString()}
+                          </p>
+                        </div>
                       </div>
 
-                      <button className="rounded bg-slate-100 px-3.5 py-2 text-[11px] font-bold uppercase tracking-wider text-slate-950 transition-colors hover:bg-amber-500 hover:text-slate-950">
-                        Explore Assets
-                      </button>
+                      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                        <button
+                          disabled={isMaxQuantity}
+                          onClick={() => {
+                            addToCart(car);
+                          }}
+                          className={`h-11 rounded-md border-2 px-3 text-[10px] font-black uppercase tracking-wider transition-all duration-300 ${
+                            isMaxQuantity
+                              ? "cursor-not-allowed border-[#00E676]/40 bg-[#00E676]/10 text-[#00E676]"
+                              : isAdded
+                              ? "border-[#00E676] bg-[#00E676] text-black shadow-[0_0_18px_rgba(0,230,118,0.45)]"
+                              : "border-white bg-slate-100 text-slate-950 hover:bg-transparent hover:text-white"
+                          }`}
+                        >
+                          {isMaxQuantity
+                            ? "Max Quantity"
+                            : isAdded
+                            ? "Added ✓"
+                            : "Add To Cart"}
+                        </button>
+
+                        <Link
+                          to={`/cars/${car.id}`}
+                          className="flex h-11 items-center justify-center rounded-md border-2 border-white bg-slate-100 px-3 text-[10px] font-black uppercase tracking-wider text-slate-950 transition-all duration-300 hover:bg-transparent hover:text-white"
+                        >
+                          View Details
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -10,6 +10,7 @@ import Footer from "./components/Footer.jsx";
 import Cart from "./Pages/cart.jsx";
 import Profile from "./Pages/profile.jsx";
 import NotFound from "./Pages/NotFound.jsx";
+import CarDetails from "./Pages/details.jsx";
 
 
 
@@ -30,6 +31,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/cars/:id" element={<CarDetails />} />
 
       </Routes>
 

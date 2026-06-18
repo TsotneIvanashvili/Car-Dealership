@@ -82,7 +82,16 @@ const Profile = () => {
                 </p>
               </div>
             </div>
+            
           </div>
+          <div>
+                <h3 className="text-4xl font-black text-[#F5F4EA]">
+                  {memberYear}
+                </h3>
+                <p className="mt-2 text-xs font-bold uppercase tracking-[0.3em] text-[#6F86AA]">
+                  Member
+                </p>
+              </div>
         </section>
 
         <section className="mt-12">

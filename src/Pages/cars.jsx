@@ -434,13 +434,7 @@ const Cars = () => {
 
                             <div className="absolute inset-0 bg-linear-to-t from-[#101925] via-transparent to-black/25"></div>
 
-                            <div className="absolute left-4 top-4 flex h-8 items-center gap-2 rounded-full border border-white/10 bg-[#111827]/85 px-3 backdrop-blur-md">
-                              <span className="h-2.5 w-2.5 rounded-full bg-[#38E07B] shadow-[0_0_12px_rgba(56,224,123,0.8)]"></span>
-
-                              <span className="text-xs font-black uppercase tracking-wider text-white">
-                                Certified
-                              </span>
-                            </div>
+                          
 
                             <button
                               type="button"

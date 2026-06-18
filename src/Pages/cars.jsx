@@ -186,7 +186,7 @@ const Cars = () => {
                     Search
                   </label>
 
-                  <div className="flex h-[52px] items-center gap-3 rounded-lg border border-[#203049] bg-[#080D16] px-4 transition focus-within:border-[#F5C542]">
+                  <div className="flex h-13 items-center gap-3 rounded-lg border border-[#203049] bg-[#080D16] px-4 transition focus-within:border-[#F5C542]">
                     <i className="fa-solid fa-magnifying-glass text-[#6F86AA]"></i>
 
                     <input
@@ -207,7 +207,7 @@ const Cars = () => {
                   <select
                     value={filters.brand}
                     onChange={(e) => updateFilter("brand", e.target.value)}
-                    className="h-[52px] w-full rounded-lg border border-[#203049] bg-[#080D16] px-4 text-sm font-semibold text-[#B8C7E0] outline-none transition focus:border-[#F5C542]"
+                    className="h-13 w-full rounded-lg border border-[#203049] bg-[#080D16] px-4 text-sm font-semibold text-[#B8C7E0] outline-none transition focus:border-[#F5C542]"
                   >
                     <option value="">All Brands</option>
                     {brands.map((brand) => (
@@ -232,7 +232,7 @@ const Cars = () => {
                     }
                     type="number"
                     placeholder="$20,000"
-                    className="h-[52px] w-full rounded-lg border border-[#203049] bg-[#080D16] px-4 text-sm font-semibold text-white outline-none transition placeholder:text-[#53647F] focus:border-[#F5C542]"
+                    className="h-13 w-full rounded-lg border border-[#203049] bg-[#080D16] px-4 text-sm font-semibold text-white outline-none transition placeholder:text-[#53647F] focus:border-[#F5C542]"
                   />
                 </div>
 
@@ -248,7 +248,7 @@ const Cars = () => {
                     }
                     type="number"
                     placeholder="$90,000"
-                    className="h-[52px] w-full rounded-lg border border-[#203049] bg-[#080D16] px-4 text-sm font-semibold text-white outline-none transition placeholder:text-[#53647F] focus:border-[#F5C542]"
+                    className="h-13 w-full rounded-lg border border-[#203049] bg-[#080D16] px-4 text-sm font-semibold text-white outline-none transition placeholder:text-[#53647F] focus:border-[#F5C542]"
                   />
                 </div>
 
@@ -260,7 +260,7 @@ const Cars = () => {
                   <select
                     value={filters.year}
                     onChange={(e) => updateFilter("year", e.target.value)}
-                    className="h-[52px] w-full rounded-lg border border-[#203049] bg-[#080D16] px-4 text-sm font-semibold text-[#B8C7E0] outline-none transition focus:border-[#F5C542]"
+                    className="h-13 w-full rounded-lg border border-[#203049] bg-[#080D16] px-4 text-sm font-semibold text-[#B8C7E0] outline-none transition focus:border-[#F5C542]"
                   >
                     <option value="">Any Year</option>
                     {years.map((year) => (
@@ -281,7 +281,7 @@ const Cars = () => {
                     onChange={(e) =>
                       updateFilter("fuelType", e.target.value)
                     }
-                    className="h-[52px] w-full rounded-lg border border-[#203049] bg-[#080D16] px-4 text-sm font-semibold text-[#B8C7E0] outline-none transition focus:border-[#F5C542]"
+                    className="h-13 w-full rounded-lg border border-[#203049] bg-[#080D16] px-4 text-sm font-semibold text-[#B8C7E0] outline-none transition focus:border-[#F5C542]"
                   >
                     <option value="">Any Fuel</option>
                     {fuelTypes.map((fuelType) => (
@@ -302,7 +302,7 @@ const Cars = () => {
                     onChange={(e) =>
                       updateFilter("transmission", e.target.value)
                     }
-                    className="h-[52px] w-full rounded-lg border border-[#203049] bg-[#080D16] px-4 text-sm font-semibold text-[#B8C7E0] outline-none transition focus:border-[#F5C542]"
+                    className="h-13 w-full rounded-lg border border-[#203049] bg-[#080D16] px-4 text-sm font-semibold text-[#B8C7E0] outline-none transition focus:border-[#F5C542]"
                   >
                     <option value="">Any Type</option>
                     {transmissions.map((transmission) => (

@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import carsData from "../utils/cars.js";
 import { getLocal, setLocal } from "../utils/localstorage.js";
 
+const fallbackImage =
+  "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=600&q=80";
+
 const Cars = () => {
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [cart, setCart] = useState(getLocal("Cart") || []);
@@ -502,10 +505,10 @@ const Cars = () => {
           </div>
         </div>
       ) : (
-        <div className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mx-auto max-w-325 px-4 pb-24 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
             {filteredCars.map((car) => {
-              const primaryImg = car.images?.[0];
+              const primaryImg = car.images?.[0] || fallbackImage;
               const favorite = isFavorite(car.id);
 
               const cartItem = cart.find((item) => item.id === car.id);
@@ -516,17 +519,32 @@ const Cars = () => {
                 buttonStatus.type === "added" &&
                 !isMaxQuantity;
 
+              const monthlyPrice = Math.round(Number(car.price) / 72);
+
               return (
-                <div
+                <article
                   key={car.id}
-                  className="group flex flex-col justify-between overflow-hidden rounded-xl border border-slate-800/70 bg-[#0d131f] shadow-xl transition-all duration-300 hover:border-slate-700/90"
+                  className="group overflow-hidden rounded-[26px]  bg-[#101925] shadow-[0_18px_45px_rgba(0,0,0,0.35)] transition duration-300 hover:-translate-y-1 "
                 >
-                  <div className="relative aspect-video w-full overflow-hidden bg-slate-950">
+                  <div className="relative h-57.5 overflow-hidden rounded-t-[26px] bg-[#0B111D]">
                     <img
                       src={primaryImg}
                       alt={`${car.brand} ${car.model}`}
-                      className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.02]"
+                      className="h-full w-full object-cover  transition duration-700 "
+                      onError={(e) => {
+                        e.currentTarget.src = fallbackImage;
+                      }}
                     />
+
+                    <div className="absolute inset-0 bg-linear-to-t from-[#101925] via-transparent to-black/25"></div>
+
+                    <div className="absolute left-4 top-4 flex h-8 items-center gap-2 rounded-full border border-white/10 bg-[#111827]/85 px-3 backdrop-blur-md">
+                      <span className="h-2.5 w-2.5 rounded-full bg-[#38E07B] shadow-[0_0_12px_rgba(56,224,123,0.8)]"></span>
+
+                      <span className="text-xs font-black uppercase tracking-wider text-white">
+                        Certified
+                      </span>
+                    </div>
 
                     <button
                       type="button"
@@ -536,98 +554,123 @@ const Cars = () => {
                           ? `Remove ${car.brand} ${car.model} from favorites`
                           : `Add ${car.brand} ${car.model} to favorites`
                       }
-                      className={`absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full border text-sm transition ${
+                      className={`absolute right-4 top-4 flex h-12 w-12 items-center justify-center rounded-full border text-lg backdrop-blur-md transition ${
                         favorite
                           ? "border-[#3E66FF] bg-[#3E66FF] text-white"
-                          : "border-[#263247] bg-[#0B111D]/85 text-[#8EA6C9] hover:border-[#3E66FF] hover:text-white"
+                          : "border-white/20 bg-black/25 text-white hover:border-white hover:bg-white hover:text-black"
                       }`}
                     >
-                      <i className="fa-solid fa-heart"></i>
+                      <i
+                        className={`${
+                          favorite ? "fa-solid" : "fa-regular"
+                        } fa-heart`}
+                      ></i>
                     </button>
                   </div>
 
-                  <div className="flex flex-1 flex-col justify-between p-5">
-                    <div>
-                      <p className="mb-1 text-[11px] font-medium tracking-wide text-slate-400">
-                        {car.year} • {car.engine} • {car.horsepower} HP
+                  <div className="p-5">
+                    <div className="flex items-start justify-between gap-4">
+                      <div>
+                        <h2 className="text-2xl font-black tracking-tight text-white">
+                          {car.brand}{" "}
+                          <span className="font-semibold text-[#8FB7F4]">
+                            {car.model}
+                          </span>
+                        </h2>
+
+                        <p className="mt-1 text-sm font-semibold text-[#8EA6C9]">
+                          {car.condition} · {car.color}
+                        </p>
+                      </div>
+
+                      <div className="flex h-10 shrink-0 items-center gap-1.5 rounded-xl border border-white/10 bg-white/5 px-3 text-sm font-black text-white">
+                        <span className="text-[#F5C542]">★</span>
+                        {Number(car.rating).toFixed(1)}
+                      </div>
+                    </div>
+
+                    <div className="mt-5 grid grid-cols-3 overflow-hidden rounded-2xl border border-[#263247]">
+                      <div className="p-3">
+                        <p className="text-[10px] font-black uppercase tracking-[0.16em] text-[#6F86AA]">
+                          Mileage
+                        </p>
+
+                        <h3 className="mt-1 text-base font-black text-white">
+                          {Number(car.mileage).toLocaleString()}
+                        </h3>
+                      </div>
+
+                      <div className="border-l border-[#263247] p-3">
+                        <p className="text-[10px] font-black uppercase tracking-[0.16em] text-[#6F86AA]">
+                          Year
+                        </p>
+
+                        <h3 className="mt-1 text-base font-black text-white">
+                          {car.year}
+                        </h3>
+                      </div>
+
+                      <div className="border-l border-[#263247] p-3">
+                        <p className="text-[10px] font-black uppercase tracking-[0.16em] text-[#6F86AA]">
+                          Fuel
+                        </p>
+
+                        <h3 className="mt-1 truncate text-base font-black text-white">
+                          {car.fuelType}
+                        </h3>
+                      </div>
+                    </div>
+
+                    <div className="mt-6">
+                      <p className="text-xs font-black uppercase tracking-[0.22em] text-[#6F86AA]">
+                        Price
                       </p>
 
-                      <h2 className="text-lg font-bold tracking-tight text-white transition-colors">
-                        {car.brand}{" "}
-                        <span className="font-light text-slate-300">
-                          {car.model}
-                        </span>
-                      </h2>
+                      <div className="mt-1 flex items-end justify-between gap-4">
+                        <h3 className="text-4xl font-black tracking-tight text-white">
+                          ${Number(car.price).toLocaleString()}
+                        </h3>
 
-                      <div className="mt-3 flex flex-wrap gap-1">
-                        <span className="rounded border border-slate-800/40 bg-slate-900 px-2 py-0.5 text-[10px] text-slate-400">
-                          {car.transmission}
-                        </span>
-
-                        <span className="rounded border border-slate-800/40 bg-slate-900 px-2 py-0.5 text-[10px] text-slate-400">
-                          {car.fuelType}
-                        </span>
-
-                        <span className="rounded border border-slate-800/40 bg-slate-900 px-2 py-0.5 text-[10px] text-slate-400">
-                          {car.color}
-                        </span>
-                      </div>
-
-                      <div className="mt-4 space-y-1">
-                        <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
-                          Highlights
-                        </p>
-
-                        <p className="truncate text-xs text-slate-400">
-                          {(car.features ?? []).join(" • ")}
+                        <p className="pb-1 text-sm font-bold text-[#8EA6C9]">
+                          ${monthlyPrice}/mo est.
                         </p>
                       </div>
                     </div>
 
-                    <div className="mt-5 border-t border-slate-800/60 pt-4">
-                      <div className="mb-4 flex items-end justify-between">
-                        <div>
-                          <p className="text-[10px] uppercase tracking-wider text-slate-500">
-                            {Number(car.mileage).toLocaleString()} miles
-                          </p>
+                    <div className="mt-6 grid grid-cols-[0.9fr_1.1fr] gap-3">
+                      <Link
+                        to={`/cars/${car.id}`}
+                        className="flex h-12 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-sm font-black text-white transition hover:border-white hover:bg-white hover:text-black"
+                      >
+                        View Details
+                      </Link>
 
-                          <p className="text-xl font-extrabold tracking-tight text-white">
-                            ${Number(car.price).toLocaleString()}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                        <button
-                          disabled={isMaxQuantity}
-                          onClick={() => {
-                            addToCart(car);
-                          }}
-                          className={`h-11 rounded-md border-2 px-3 text-[10px] font-black uppercase tracking-wider transition-all duration-300 ${
-                            isMaxQuantity
-                              ? "cursor-not-allowed border-[#00E676]/40 bg-[#00E676]/10 text-[#00E676]"
-                              : isAdded
-                              ? "border-[#00E676] bg-[#00E676] text-black shadow-[0_0_18px_rgba(0,230,118,0.45)]"
-                              : "border-white bg-slate-100 text-slate-950 hover:bg-transparent hover:text-white"
-                          }`}
-                        >
-                          {isMaxQuantity
-                            ? "Max Quantity"
+                      <button
+                        disabled={isMaxQuantity}
+                        onClick={() => {
+                          addToCart(car);
+                        }}
+                        className={`flex h-12 items-center justify-center gap-2 rounded-xl text-sm font-black transition-all duration-300 ${
+                          isMaxQuantity
+                            ? "cursor-not-allowed border border-[#00E676]/40 bg-[#00E676]/10 text-[#00E676]"
                             : isAdded
-                            ? "Added ✓"
-                            : "Add To Cart"}
-                        </button>
+                            ? "bg-[#00E676] text-black shadow-[0_0_20px_rgba(0,230,118,0.4)]"
+                            : "bg-[#F5F7FB] text-[#0B111D] hover:bg-[#00E676] hover:text-black"
+                        }`}
+                      >
+                        {!isMaxQuantity && (
+                          <i className="fa-solid fa-cart-shopping text-base"></i>
+                        )}
 
-                        <Link
-                          to={`/cars/${car.id}`}
-                          className="flex h-11 items-center justify-center rounded-md border-2 border-white bg-slate-100 px-3 text-[10px] font-black uppercase tracking-wider text-slate-950 transition-all duration-300 hover:bg-transparent hover:text-white"
-                        >
-                          View Details
-                        </Link>
-                      </div>
+                        {isMaxQuantity
+                          ? "Max"
+                          : isAdded
+                          ? "Added ✓"
+                          : "Add to Cart"}
+                      </button>
                     </div>
                   </div>
-                </div>
+                </article>
               );
             })}
           </div>

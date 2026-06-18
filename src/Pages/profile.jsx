@@ -153,9 +153,7 @@ const Profile = () => {
                             <i className="fa-solid fa-heart text-xs"></i>
                           </button>
 
-                          <p className="absolute bottom-4 left-4 text-xs font-medium tracking-widest text-[#6F86AA]">
-                            // {car.brand?.toLowerCase()}_{car.model?.toLowerCase()}
-                          </p>
+                          
                         </div>
 
                         <div className="p-6">

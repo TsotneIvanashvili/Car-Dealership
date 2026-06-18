@@ -106,7 +106,7 @@ const HomePage = () => {
           }}
         ></div>
 
-        <div className="relative flex flex-col items-center justify-center gap-6 md:gap-10 bg-[#010619] pt-6 pb-12 md:pb-20">
+        <div className="relative flex flex-col items-center justify-center gap-6 md:gap-10 bg-[#010619] p-10">
           <RevealText
             as="h2"
             className="text-center text-3xl sm:text-4xl md:text-5xl uppercase text-white opacity-95"
@@ -147,7 +147,6 @@ const HomePage = () => {
         ))}
 
         <div className="absolute inset-0 bg-linear-to-r from-[#08090C] via-[#08090C]/40 to-transparent"></div>
-        <div className="absolute inset-0 h-200 bg-linear-to-b from-[#010619] via-transparent to-transparent"></div>
 
         <div className="relative z-10 flex h-full items-center px-8 md:px-16 lg:px-24">
           <div key={index} className="max-w-2xl">

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import carsData from "../utils/cars.js";
 import { getLocal, setLocal } from "../utils/localstorage.js";
@@ -8,23 +8,109 @@ const CarDetails = () => {
 
   const car = carsData.find((item) => item.id === Number(id));
 
-  const [selectedImage, setSelectedImage] = useState(car?.images?.[0] || "");
   const [cart, setCart] = useState(getLocal("Cart") || []);
   const [added, setAdded] = useState(false);
+  const [heroIndex, setHeroIndex] = useState(0);
+
+  const heroImages = useMemo(() => {
+    if (!car?.images?.length) return [];
+    return car.images;
+  }, [car]);
 
   useEffect(() => {
     setLocal("Cart", cart);
   }, [cart]);
 
+  useEffect(() => {
+    setHeroIndex(0);
+  }, [id]);
+
+  useEffect(() => {
+    if (heroImages.length <= 1) return;
+
+    const interval = setInterval(() => {
+      setHeroIndex((prev) => (prev + 1) % heroImages.length);
+    }, 3500);
+
+    return () => clearInterval(interval);
+  }, [heroImages.length]);
+
+  const cartItem = car ? cart.find((item) => item.id === car.id) : null;
+  const isMaxQuantity = cartItem?.quantity >= 2;
+  const isInCart = Boolean(cartItem);
+
+  const performanceStats = useMemo(() => {
+    if (!car) return [];
+
+    const horsepower = Number(car.horsepower);
+
+    const acceleration =
+      horsepower >= 500
+        ? "3.5 s"
+        : horsepower >= 400
+        ? "4.2 s"
+        : horsepower >= 300
+        ? "5.1 s"
+        : "6.4 s";
+
+    const topSpeed =
+      horsepower >= 500
+        ? "290 km/h"
+        : horsepower >= 400
+        ? "270 km/h"
+        : horsepower >= 300
+        ? "245 km/h"
+        : "220 km/h";
+
+    const transmission =
+      car.transmission === "Manual" ? "6-speed Manual" : "8-speed Automatic";
+
+    const drivetrain =
+      car.fuelType === "Electric"
+        ? "Dual Motor AWD"
+        : horsepower >= 400
+        ? "Rear-wheel drive"
+        : "Front-wheel drive";
+
+    return [
+      {
+        label: "Power",
+        value: `${car.horsepower} HP`,
+      },
+      {
+        label: "0-100 KM/H",
+        value: acceleration,
+      },
+      {
+        label: "Top Speed",
+        value: topSpeed,
+      },
+      {
+        label: "Drivetrain",
+        value: drivetrain,
+      },
+      {
+        label: "Transmission",
+        value: transmission,
+      },
+      {
+        label: "Engine",
+        value: car.engine,
+      },
+    ];
+  }, [car]);
+
   if (!car) {
     return (
       <main className="flex min-h-screen items-center justify-center bg-[#07090e] px-6 text-white">
         <div className="text-center">
-          <h1 className="text-5xl font-black uppercase">Car Not Found</h1>
+          <h1 className="text-4xl font-black uppercase md:text-5xl">
+            Car Not Found
+          </h1>
 
           <Link
             to="/cars"
-            className="mt-6 inline-block rounded-lg bg-white px-8 py-4 text-sm font-black uppercase tracking-wider text-black transition hover:bg-[#F5C542]"
+            className="mt-6 inline-block border-2 border-white bg-white px-8 py-4 text-sm font-black uppercase tracking-wider text-black transition hover:bg-transparent hover:text-white"
           >
             Back To Cars
           </Link>
@@ -32,10 +118,6 @@ const CarDetails = () => {
       </main>
     );
   }
-
-  const cartItem = cart.find((item) => item.id === car.id);
-  const isMaxQuantity = cartItem?.quantity >= 2;
-  const isInCart = Boolean(cartItem);
 
   const addToCart = () => {
     if (isMaxQuantity) return;
@@ -61,206 +143,232 @@ const CarDetails = () => {
     }, 1200);
   };
 
-  const specs = [
-    {
-      label: "Engine",
-      value: car.engine,
-    },
-    {
-      label: "Power",
-      value: `${car.horsepower} HP`,
-    },
-    {
-      label: "Gearbox",
-      value: car.transmission,
-    },
-    {
-      label: "Fuel",
-      value: car.fuelType,
-    },
-    {
-      label: "Mileage",
-      value: `${Number(car.mileage).toLocaleString()} miles`,
-    },
-    {
-      label: "Color",
-      value: car.color,
-    },
-    {
-      label: "Condition",
-      value: car.condition,
-    },
-    {
-      label: "Year",
-      value: car.year,
-    },
-  ];
+  const modelWords = car.model.split(" ");
+  const firstModelWord = modelWords[0];
+  const restModelWords = modelWords.slice(1).join(" ");
 
   return (
-    <main className="min-h-screen bg-[#07090e] px-5 py-28 text-white md:px-10 lg:px-16">
-      <div className="mx-auto max-w-7xl">
-        <Link
-          to="/cars"
-          className="mb-8 inline-flex items-center gap-2 text-sm font-bold text-[#8EA6C9] transition hover:text-white"
-        >
-          <span>←</span>
-          Back to all cars
-        </Link>
+    <main className="min-h-screen overflow-hidden bg-[#07090e] text-white">
+      <section className="relative min-h-[92vh] overflow-hidden bg-[#071022] px-5 pt-24 sm:min-h-screen sm:px-8 md:px-16 lg:px-24">
+        <div className="absolute inset-0">
+          {heroImages.map((image, index) => (
+            <img
+              key={image}
+              src={image}
+              alt={`${car.brand} ${car.model} ${index + 1}`}
+              className={`absolute inset-0 h-full w-full object-cover transition-all duration-1000 ease-in-out ${
+                heroIndex === index
+                  ? "scale-100 opacity-55"
+                  : "scale-105 opacity-0"
+              }`}
+            />
+          ))}
+        </div>
 
-        <section className="grid grid-cols-1 gap-12 lg:grid-cols-[1.15fr_0.85fr]">
-          <div>
-            <div className="relative overflow-hidden rounded-3xl border border-[#203049] bg-[#0B111D] shadow-2xl shadow-black/40">
-              <div className="absolute left-6 top-6 z-10 rounded-md bg-[#F5C542] px-4 py-2 text-xs font-black uppercase tracking-widest text-black">
-                {car.condition}
-              </div>
 
-              <img
-                src={selectedImage}
-                alt={`${car.brand} ${car.model}`}
-                className="h-130 w-full object-cover"
-              />
 
-              <div className="absolute inset-0 bg-linear-to-t from-[#07090e]/40 via-transparent to-transparent"></div>
-            </div>
+        <div className="relative z-20 mx-auto flex min-h-[calc(92vh-6rem)] max-w-7xl flex-col justify-between pb-10 sm:min-h-[calc(100vh-6rem)]">
+          <Link
+            to="/cars"
+            className="inline-flex w-fit items-center gap-2 text-xs font-black uppercase tracking-[0.22em] text-[#8EA6C9] transition hover:text-white sm:text-sm sm:tracking-[0.25em]"
+          >
+            ← Back To Garage
+          </Link>
 
-            <div className="mt-4 grid grid-cols-4 gap-4">
-              {(car.images || []).slice(0, 4).map((image, index) => (
+          <div className="pb-8">
+            <p className="mb-5 text-xs font-black uppercase tracking-[0.35em] text-[#3157FF] sm:text-sm sm:tracking-[0.4em]">
+              {car.brand} ·
+            </p>
+
+            <h1 className="max-w-6xl wrap-break-word text-[clamp(2.75rem,13vw,12rem)] font-black uppercase leading-[0.85] tracking-[-0.06em] text-[#F5F0E6]">
+              {firstModelWord}
+              {restModelWords && (
+                <>
+                  <br />
+                  {restModelWords}
+                </>
+              )}
+            </h1>
+
+            <p className="mt-7 text-base font-semibold text-[#9BB7E5] sm:text-lg md:text-xl">
+              {car.engine} · {car.horsepower} HP
+            </p>
+          </div>
+
+          {heroImages.length > 1 && (
+            <div className="flex gap-2">
+              {heroImages.map((_, index) => (
                 <button
                   key={index}
-                  onClick={() => setSelectedImage(image)}
-                  className={`h-28 overflow-hidden rounded-2xl border bg-[#0B111D] transition ${
-                    selectedImage === image
-                      ? "border-[#F5C542]"
-                      : "border-[#203049] hover:border-white/40"
+                  onClick={() => setHeroIndex(index)}
+                  className={`h-1 transition-all duration-500 ${
+                    heroIndex === index
+                      ? "w-12 bg-[#3157FF]"
+                      : "w-5 bg-white/25 hover:bg-white/50"
                   }`}
+                ></button>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      <section className="bg-[#0B111D] px-5 py-10 sm:px-8 md:px-16 lg:px-24">
+        <div className="mx-auto flex max-w-7xl flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <h2 className="text-4xl font-black tracking-tight text-[#F5F0E6] sm:text-5xl md:text-6xl">
+              ${Number(car.price).toLocaleString()}
+            </h2>
+
+            <p className="mt-3 text-xs font-black uppercase tracking-[0.3em] text-[#6F86AA] sm:text-sm">
+              MSRP · Excl. Taxes
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:flex">
+            <Link
+              to="/cars"
+              className="flex h-14 items-center justify-center border border-[#263247] px-6 text-center text-xs font-black uppercase tracking-[0.22em] text-white transition hover:border-white sm:h-16 sm:px-10 sm:text-sm"
+            >
+              Explore Showroom
+            </Link>
+
+            <button
+              disabled={isMaxQuantity}
+              onClick={addToCart}
+              className={`h-14 px-6 text-xs font-black uppercase tracking-[0.22em] transition-all duration-300 sm:h-16 sm:px-10 sm:text-sm ${
+                isMaxQuantity
+                  ? "cursor-not-allowed border border-[#00E676]/40 bg-[#00E676]/15 text-[#00E676]"
+                  : added
+                  ? "bg-[#00E676] text-black shadow-[0_0_24px_rgba(0,230,118,0.45)]"
+                  : isInCart
+                  ? "bg-[#F5F0E6] text-black hover:bg-[#00E676]"
+                  : "bg-[#F5F0E6] text-black hover:bg-[#3157FF] hover:text-white"
+              }`}
+            >
+              {isMaxQuantity
+                ? "Max Quantity Reached"
+                : added
+                ? "Added ✓"
+                : isInCart
+                ? "Add One More"
+                : "Add To Cart"}
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#3157FF] px-5 py-12 text-white sm:px-8 md:px-16 lg:px-24">
+        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
+          {performanceStats.map((stat) => (
+            <div key={stat.label} className="min-w-0">
+              <p className="text-xs font-black uppercase tracking-[0.3em] text-white/55">
+                {stat.label}
+              </p>
+
+              <h3 className="mt-4 wrap-break-word text-2xl font-black leading-[1.05] tracking-[-0.04em] text-white sm:text-3xl lg:text-4xl">
+                {stat.value}
+              </h3>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="bg-[#07090e] px-5 py-20 sm:px-8 md:px-16 md:py-28 lg:px-24">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-16 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20">
+          <div>
+            <div className="mb-8 flex items-center gap-5">
+              <span className="h-px w-10 bg-[#3157FF] sm:w-12"></span>
+
+              <p className="text-xs font-black uppercase tracking-[0.3em] text-[#3157FF] sm:text-sm sm:tracking-[0.35em]">
+                The Machine
+              </p>
+            </div>
+
+            <h2 className="text-4xl font-black uppercase leading-none tracking-[-0.04em] text-[#F5F0E6] sm:text-5xl md:text-6xl">
+              Built To Be Driven
+            </h2>
+
+            <p className="mt-8 max-w-2xl text-base font-medium leading-8 text-[#C7D4EF] sm:text-lg sm:leading-9">
+              A meticulously prepared example, inspected against our high
+              standard and delivered ready for the road. Every detail — from
+              power delivery to interior feel — is selected for drivers who
+              measure a car by how it feels, not just how it looks.
+            </p>
+          </div>
+
+          <div>
+            <div className="mb-8 flex items-center gap-5">
+              <span className="h-px w-10 bg-[#3157FF] sm:w-12"></span>
+
+              <p className="text-xs font-black uppercase tracking-[0.3em] text-[#3157FF] sm:text-sm sm:tracking-[0.35em]">
+                Highlights
+              </p>
+            </div>
+
+            <div className="border-t border-white/10">
+              {(car.features || []).map((feature) => (
+                <div
+                  key={feature}
+                  className="flex items-center gap-5 border-b border-white/10 py-5 sm:py-6"
+                >
+                  <span className="h-2 w-2 shrink-0 bg-[#3157FF]"></span>
+
+                  <p className="text-base font-semibold text-[#E8EEF9] sm:text-lg">
+                    {feature}
+                  </p>
+                </div>
+              ))}
+
+              {[
+                "170-point inspection passed",
+                "Trade-in welcome",
+                "Fully refundable reservation deposit",
+              ].map((item) => (
+                <div
+                  key={item}
+                  className="flex items-center gap-5 border-b border-white/10 py-5 sm:py-6"
+                >
+                  <span className="h-2 w-2 shrink-0 bg-[#3157FF]"></span>
+
+                  <p className="text-base font-semibold text-[#E8EEF9] sm:text-lg">
+                    {item}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {car.images?.length > 0 && (
+        <section className="bg-[#07090e] px-5 pb-20 sm:px-8 md:px-16 md:pb-28 lg:px-24">
+          <div className="mx-auto max-w-7xl">
+            <div className="mb-8 flex items-center gap-5">
+              <span className="h-px w-10 bg-[#3157FF] sm:w-12"></span>
+
+              <p className="text-xs font-black uppercase tracking-[0.3em] text-[#3157FF] sm:text-sm sm:tracking-[0.35em]">
+                Gallery
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+              {car.images.slice(0, 4).map((image, index) => (
+                <div
+                  key={index}
+                  className="h-60 overflow-hidden bg-[#0B111D] sm:h-80 lg:h-90"
                 >
                   <img
                     src={image}
                     alt={`${car.brand} ${car.model} ${index + 1}`}
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-cover opacity-85 transition duration-500 hover:scale-105 hover:opacity-100"
                   />
-                </button>
+                </div>
               ))}
             </div>
-
-            <div className="mt-12">
-              <h2 className="text-3xl font-black uppercase">Specification</h2>
-
-              <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                {specs.map((spec) => (
-                  <div
-                    key={spec.label}
-                    className="rounded-2xl border border-[#203049] bg-[#0B111D] p-5 shadow-xl shadow-black/20"
-                  >
-                    <p className="text-xs font-black uppercase tracking-[0.22em] text-[#6F86AA]">
-                      {spec.label}
-                    </p>
-
-                    <h3 className="mt-3 text-xl font-black text-white">
-                      {spec.value}
-                    </h3>
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
-
-          <aside className="lg:sticky lg:top-28 lg:h-fit">
-            <div className="flex items-start justify-between gap-6">
-              <div>
-                <p className="text-sm font-black uppercase tracking-[0.25em] text-[#F5C542]">
-                  {car.brand}
-                </p>
-
-                <h1 className="mt-3 text-5xl font-black leading-none tracking-tight md:text-6xl">
-                  {car.model}
-                </h1>
-
-                <p className="mt-5 text-lg text-[#8EA6C9]">
-                  {car.year} · {car.fuelType} · {car.color} ·{" "}
-                  {Number(car.mileage).toLocaleString()} miles
-                </p>
-              </div>
-
-              <div className="shrink-0 rounded-md bg-[#0B111D] px-3 py-2 text-sm font-bold text-white">
-                <span className="text-[#F5C542]">★</span>{" "}
-                {Number(car.rating).toFixed(1)} rating
-              </div>
-            </div>
-
-            <div className="mt-8 rounded-3xl border border-[#203049] bg-[#0B111D] p-7 shadow-2xl shadow-black/40">
-              <div className="flex items-start justify-between gap-6">
-                <div>
-                  <p className="text-xs font-black uppercase tracking-[0.25em] text-[#6F86AA]">
-                    Drive-away price
-                  </p>
-
-                  <h2 className="mt-3 text-5xl font-black text-white">
-                    ${Number(car.price).toLocaleString()}
-                  </h2>
-                </div>
-
-                <span className="rounded-full bg-[#10192A] px-4 py-2 text-xs font-black text-[#F5C542]">
-                  No hidden fees
-                </span>
-              </div>
-            </div>
-
-            <div className="mt-6 flex flex-col gap-3">
-              {isMaxQuantity ? (
-                <button
-                  disabled
-                  className="h-15 cursor-not-allowed rounded-2xl border border-[#00E676]/40 bg-[#00E676]/15 text-sm font-black uppercase tracking-wider text-[#00E676]"
-                >
-                  Max Quantity Reached
-                </button>
-              ) : (
-                <button
-                  onClick={addToCart}
-                  className={`h-15 rounded-2xl text-sm font-black uppercase tracking-wider transition-all duration-300 ${
-                    added
-                      ? "bg-[#00E676] text-black shadow-[0_0_25px_rgba(0,230,118,0.45)]"
-                      : isInCart
-                      ? "bg-[#F5C542] text-black hover:bg-[#00E676]"
-                      : "bg-white text-black hover:bg-[#00E676]"
-                  }`}
-                >
-                  {added ? "Added ✓" : isInCart ? "Add One More" : "Add To Cart"}
-                </button>
-              )}
-
-              <button className="h-15 rounded-2xl border border-[#203049] bg-transparent text-sm font-black uppercase tracking-wider text-white transition hover:border-white">
-                Book a test drive
-              </button>
-            </div>
-
-            <div className="mt-8">
-              <h3 className="text-sm font-black uppercase tracking-wider text-white">
-                What it comes with
-              </h3>
-
-              <div className="mt-4 flex flex-wrap gap-3">
-                {(car.features || []).map((feature) => (
-                  <span
-                    key={feature}
-                    className="rounded-full bg-[#10192A] px-4 py-2 text-sm font-semibold text-[#9BB7E5]"
-                  >
-                    {feature}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="mt-8 rounded-3xl border border-[#1b3d2b] bg-[#07150f] p-6">
-              <ul className="space-y-4 text-sm font-semibold text-[#A7F3C4]">
-                <li>✓ 170-point inspection passed</li>
-                <li>✓ Free concierge delivery</li>
-                <li>✓ Trade-in welcome</li>
-              </ul>
-            </div>
-          </aside>
         </section>
-      </div>
+      )}
     </main>
   );
 };

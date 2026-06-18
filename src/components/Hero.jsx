@@ -20,7 +20,6 @@ const HeroSection = () => {
 
 
       <div className="absolute inset-0 bg-linear-to-r from-[#0E0F13] via-[#0E0F13]/60 to-[#0E0F13]/15" />
-      <div className="absolute inset-0 bg-linear-to-t from-[#010619] via-transparent to-transparent" />
 
       <div className="relative z-10 flex h-full flex-col justify-center px-8 md:px-16 lg:px-24">
 

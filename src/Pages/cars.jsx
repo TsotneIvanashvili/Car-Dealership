@@ -1,15 +1,7 @@
 import carsData from "../utils/cars.js"
 
 const fallbackImage ="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=600&q=80";
-const getImageUrl = (image) => {
-  if (!image) return fallbackImage;
 
-  if (image.startsWith("http")) {
-    return image;
-  }
-
-  return image.startsWith("/") ? image : `/${image}`;
-};
 
 const Cars = () => {
   return (
@@ -18,7 +10,7 @@ const Cars = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {carsData.map((car) => {
-            const primaryImg = getImageUrl(car.images?.[0]);
+            const primaryImg = car.images?.[0] || fallbackImage;
 
             return (
               <div

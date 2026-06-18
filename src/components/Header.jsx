@@ -66,7 +66,7 @@ const NavBar = () => {
       openMenuButtonColor="#F5F4F1"
       accentColor="blue"
       logoText="Dealership"
-      logoUrl="/Main/Logo.png"
+      logoUrl="/Main/logo.png"
       isFixed={true}
     />
   );

@@ -219,14 +219,31 @@ const Cars = () => {
               </h1>
             </div>
 
-            <div className="w-fit border border-[#263247] bg-[#0B111D] px-5 py-4">
-              <p className="text-xs font-black uppercase tracking-[0.25em] text-[#8EA6C9]">
-                Results
-              </p>
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-stretch">
+              <div className="min-w-42 border border-[#263247] bg-[#0B111D] px-5 py-4">
+                <p className="text-xs font-black uppercase tracking-[0.25em] text-[#8EA6C9]">
+                  Results
+                </p>
 
-              <p className="mt-2 text-2xl font-black text-[#F5F0E6]">
-                {filteredCars.length} Cars
-              </p>
+                <p className="mt-2 text-2xl font-black text-[#F5F0E6]">
+                  {filteredCars.length} Cars
+                </p>
+              </div>
+
+              <div className="min-w-58 border border-[#263247] bg-[#0B111D] px-5 py-4">
+                <label className="block text-xs font-black uppercase tracking-[0.25em] text-[#8EA6C9]">
+                  Sort Price
+                </label>
+
+                <select
+                  value={filters.sort}
+                  onChange={(e) => updateFilter("sort", e.target.value)}
+                  className="mt-2 h-10 w-full border border-[#263247] bg-[#07090e] px-3 text-sm font-black text-[#F5F0E6] outline-none transition focus:border-[#3157FF]"
+                >
+                  <option value="price-asc">Ascending</option>
+                  <option value="price-desc">Descending</option>
+                </select>
+              </div>
             </div>
           </div>
 
@@ -239,7 +256,7 @@ const Cars = () => {
                   </p>
 
                   <p className="mt-2 text-sm font-semibold text-[#8EA6C9]">
-                    Search and sort inventory
+                    Search inventory
                   </p>
                 </div>
 
@@ -291,21 +308,6 @@ const Cars = () => {
                           {brand}
                         </option>
                       ))}
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="mb-3 block text-xs font-black uppercase tracking-[0.3em] text-[#6F86AA]">
-                      Sort Price
-                    </label>
-
-                    <select
-                      value={filters.sort}
-                      onChange={(e) => updateFilter("sort", e.target.value)}
-                      className="h-13 w-full border border-[#263247] bg-[#07090e] px-4 text-sm font-bold text-[#F5F0E6] outline-none transition focus:border-[#3157FF]"
-                    >
-                      <option value="price-asc">Ascending</option>
-                      <option value="price-desc">Descending</option>
                     </select>
                   </div>
 
@@ -400,8 +402,6 @@ const Cars = () => {
                 </div>
               ) : (
                 <>
-
-
                   <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,360px),1fr))] justify-items-center gap-6">
                     {paginatedCars.map((car) => {
                       const primaryImg = car.images?.[0] || fallbackImage;
@@ -433,8 +433,6 @@ const Cars = () => {
                             />
 
                             <div className="absolute inset-0 bg-linear-to-t from-[#101925] via-transparent to-black/25"></div>
-
-                          
 
                             <button
                               type="button"
@@ -540,7 +538,7 @@ const Cars = () => {
                                 onClick={() => {
                                   addToCart(car);
                                 }}
-                                className={`flex h-12 items-center justify-center gap-2 rounded-xl text-sm font-black transition-all duration-300 ${
+                                className={` cursor-pointer flex h-12 items-center justify-center gap-2 rounded-xl text-sm font-black transition-all duration-300 ${
                                   isMaxQuantity
                                     ? "cursor-not-allowed border border-[#00E676]/40 bg-[#00E676]/10 text-[#00E676]"
                                     : isAdded

@@ -50,7 +50,6 @@ const SignUp = () => {
         <source src={VIDEO_MP4} type="video/mp4" />
       </video>
 
-      <div className="absolute inset-0 bg-black/45" />
       <div className="absolute inset-0 bg-linear-to-t from-[#050914] via-transparent to-[#05070d]/60" />
 
       <div className="relative z-10 w-full max-w-135 text-center bg-black/25 backdrop-blur-md px-8 py-10 rounded-2xl shadow-2xl shadow-black/50">

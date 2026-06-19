@@ -97,6 +97,10 @@ const HomePage = () => {
     <div className="min-h-screen overflow-x-hidden bg-[#0E0F13] text-[#F5F4F1]">
       <HeroSection />
 
+
+
+      
+
       <section className="relative overflow-hidden bg-[#16181F]">
         <div
           className="pointer-events-none absolute inset-x-0 top-0 h-64 opacity-[0.07]"
@@ -197,6 +201,11 @@ const HomePage = () => {
       </div>
       
       
+
+
+
+       
+
       
     </div>
   );

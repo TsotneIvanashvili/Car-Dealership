@@ -56,7 +56,7 @@ const NotFound = () => {
             </Link>
 
             <Link
-              to="/products"
+              to="/cars"
               className="rounded-sm border-2 border-white/25 bg-white/5 px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] text-[#F5F4F1] backdrop-blur-md transition duration-300 hover:border-[#F5F4F1] hover:bg-[#F5F4F1] hover:text-black"
             >
               View Cars

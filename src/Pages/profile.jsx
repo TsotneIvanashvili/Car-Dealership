@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getLocal } from "../utils/localstorage.js";
 
-
 const Profile = () => {
+  const navigate = useNavigate();
+
   const currentUser = getLocal("CurrentUser") || {
     name: "Guest User",
     email: "guest@gmail.com",
@@ -16,6 +17,12 @@ const Profile = () => {
   const [activeTab, setActiveTab] = useState("saved");
 
   const memberYear = currentUser.memberSince || new Date().getFullYear();
+
+  const logOut = () => {
+    localStorage.removeItem("CurrentUser");
+    navigate("/login");
+  };
+
   const tabClass = (tab) =>
     `pb-5 text-sm font-black uppercase tracking-wider transition ${
       activeTab === tab
@@ -39,8 +46,23 @@ const Profile = () => {
 
           <div className="relative z-10 flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between">
             <div className="flex flex-col gap-8 md:flex-row md:items-center">
-              <div className="flex overflow-hidden h-36 w-36 shrink-0 items-center justify-center rounded-full border border-[#3E66FF] bg-[#10192A] text-4xl font-black text-[#F5F4EA]">
-                <img  src={currentUser.image} alt="" />
+              <div className="flex h-36 w-36 shrink-0 items-center justify-center overflow-hidden rounded-full border border-[#3E66FF] bg-[#10192A] text-4xl font-black text-[#F5F4EA]">
+                {currentUser.image ? (
+                  <img
+                    src={currentUser.image}
+                    alt={currentUser.name}
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <span>
+                    {currentUser.name
+                      .split(" ")
+                      .map((word) => word[0])
+                      .join("")
+                      .slice(0, 2)
+                      .toUpperCase()}
+                  </span>
+                )}
               </div>
 
               <div>
@@ -49,49 +71,51 @@ const Profile = () => {
                 </h1>
 
                 <p className="mt-5 text-lg font-medium text-[#9BB7E5]">
-                  {currentUser.email} · {currentUser.location || "Tbilisi, Georgia"}
+                  {currentUser.email} ·{" "}
+                  {currentUser.location || "Tbilisi, Georgia"}
                 </p>
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-8 text-center">
-              <div>
-                <h3 className="text-4xl font-black text-[#F5F4EA]">
-                  {savedCars.length}
-                </h3>
-                <p className="mt-2 text-xs font-bold uppercase tracking-[0.3em] text-[#6F86AA]">
-                  Saved
-                </p>
+            <div className="flex flex-col items-start gap-7 lg:items-end">
+              <div className="grid grid-cols-3 gap-8 text-center">
+                <div>
+                  <h3 className="text-4xl font-black text-[#F5F4EA]">
+                    {savedCars.length}
+                  </h3>
+                  <p className="mt-2 text-xs font-bold uppercase tracking-[0.3em] text-[#6F86AA]">
+                    Saved
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-4xl font-black text-[#F5F4EA]">
+                    {orders.length}
+                  </h3>
+                  <p className="mt-2 text-xs font-bold uppercase tracking-[0.3em] text-[#6F86AA]">
+                    Orders
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-4xl font-black text-[#F5F4EA]">
+                    {memberYear}
+                  </h3>
+                  <p className="mt-2 text-xs font-bold uppercase tracking-[0.3em] text-[#6F86AA]">
+                    Member
+                  </p>
+                </div>
               </div>
 
-              <div>
-                <h3 className="text-4xl font-black text-[#F5F4EA]">
-                  {orders.length}
-                </h3>
-                <p className="mt-2 text-xs font-bold uppercase tracking-[0.3em] text-[#6F86AA]">
-                  Orders
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-4xl font-black text-[#F5F4EA]">
-                  {memberYear}
-                </h3>
-                <p className="mt-2 text-xs font-bold uppercase tracking-[0.3em] text-[#6F86AA]">
-                  Member
-                </p>
-              </div>
+              <button
+                onClick={logOut}
+                className="h-12 border border-red-400/30 bg-red-500/10 px-7 text-sm font-black uppercase tracking-[0.22em] text-red-300 transition hover:border-red-400 hover:bg-red-500 hover:text-white"
+              >
+                <i className="fa-solid fa-right-from-bracket mr-3"></i>
+                Log Out
+              </button>
             </div>
-            
           </div>
-          <div>
-                <h3 className="text-4xl font-black text-[#F5F4EA]">
-                  {memberYear}
-                </h3>
-                <p className="mt-2 text-xs font-bold uppercase tracking-[0.3em] text-[#6F86AA]">
-                  Member
-                </p>
-              </div>
         </section>
 
         <section className="mt-12">
@@ -161,8 +185,6 @@ const Profile = () => {
                           <button className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center border border-[#263247] bg-[#0B111D]/80 text-[#3E66FF]">
                             <i className="fa-solid fa-heart text-xs"></i>
                           </button>
-
-                          
                         </div>
 
                         <div className="p-6">
@@ -254,7 +276,6 @@ const Profile = () => {
               </div>
             </div>
           )}
-
         </section>
       </div>
     </main>

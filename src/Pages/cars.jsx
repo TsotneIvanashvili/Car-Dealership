@@ -80,7 +80,8 @@ const Cars = () => {
   };
 
   const toggleFavorite = (car) => {
-    setFavorites((prevFavorites) => {
+    if(getLocal("CurrentUser")){
+       setFavorites((prevFavorites) => {
       const exists = prevFavorites.some((favorite) => favorite.id === car.id);
 
       if (exists) {
@@ -89,6 +90,10 @@ const Cars = () => {
 
       return [...prevFavorites, car];
     });
+    }
+    else{
+      alert("Log In To Add To Favorites")
+    }
   };
 
   const [filters, setFilters] = useState({
@@ -153,7 +158,6 @@ const Cars = () => {
         ${car.engine ?? ""}
         ${car.fuelType ?? ""}
         ${car.transmission ?? ""}
-        ${car.color ?? ""}
         ${(car.features ?? []).join(" ")}
       `.toLowerCase();
 
@@ -453,7 +457,6 @@ const Cars = () => {
                         buttonStatus.type === "added" &&
                         !isMaxQuantity;
 
-                      const monthlyPrice = Math.round(Number(car.price) / 72);
 
                       return (
                         <article
@@ -470,7 +473,7 @@ const Cars = () => {
                               }}
                             />
 
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#101925] via-transparent to-black/25"></div>
+                            <div className="absolute inset-0 bg-linear-to-t from-[#101925] via-transparent to-black/25"></div>
 
                             <button
                               type="button"
@@ -504,9 +507,6 @@ const Cars = () => {
                                   </span>
                                 </h2>
 
-                                <p className="mt-1 text-sm font-semibold text-[#8EA6C9]">
-                                  {car.condition} · {car.color}
-                                </p>
                               </div>
 
                               <div className="flex h-10 shrink-0 items-center gap-1.5 rounded-xl border border-white/10 bg-white/5 px-3 text-sm font-black text-white">
@@ -558,9 +558,6 @@ const Cars = () => {
                                 </h3>
                               </div>
 
-                              <p className="mt-1 text-right text-sm font-bold text-[#8EA6C9]">
-                                ${monthlyPrice}/mo est.
-                              </p>
                             </div>
 
                             <div className="mt-6 grid grid-cols-[0.9fr_1.1fr] gap-3">

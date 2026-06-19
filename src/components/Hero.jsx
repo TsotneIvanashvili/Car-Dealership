@@ -23,7 +23,7 @@ const HeroSection = () => {
       </video>
 
       <div className="absolute inset-0 bg-linear-to-r from-[#0e0f1398] via-[#0E0F13]/30 to-[#0E0F13]/15" />
-              <div className="absolute inset-0 bg-linear-to-t h-80 top-150  from-[#010619f9]"  />
+      <div className="absolute inset-0 bg-linear-to-t h-80 top-150  from-[#010619f9]"  />
 
       
 

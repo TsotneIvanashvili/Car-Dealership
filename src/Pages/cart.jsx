@@ -15,8 +15,7 @@ const Cart = () => {
     }, 0);
   }, [cart]);
 
-  const taxes = Math.round(subtotal * 0.07);
-  const total = subtotal + taxes;
+  const total = subtotal ;
 
   const decreaseQuantity = (id) => {
     setCart((prevCart) =>
@@ -86,9 +85,6 @@ const Cart = () => {
             Cart
           </h1>
 
-          <p className="mt-6 text-lg text-[#8EA6C9]">
-            {cart.length} vehicle(s) reserved in your order
-          </p>
         </div>
 
         <section className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_0.65fr]">
@@ -111,14 +107,9 @@ const Cart = () => {
                         className="h-full w-full object-cover opacity-70"
                       />
 
-                      <h3 className="absolute -top-2 left-6 text-5xl font-black uppercase text-white/5">
-                        {car.brand}
-                      </h3>
+                     
 
-                      <p className="absolute bottom-4 left-5 text-xs font-medium tracking-widest text-[#6F86AA]">
-                        // {car.brand?.toLowerCase()}_
-                        {car.model?.toLowerCase().replaceAll(" ", "_")}
-                      </p>
+              
                     </div>
 
                     <div>
@@ -200,13 +191,7 @@ const Cart = () => {
                 </span>
               </div>
 
-              <div className="flex items-center justify-between text-lg">
-                <span className="text-white">Est. taxes & fees</span>
-
-                <span className="font-semibold text-white">
-                  ${taxes.toLocaleString()}
-                </span>
-              </div>
+              
             </div>
 
             <div className="my-10 h-px bg-[#263247]"></div>

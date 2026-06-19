@@ -143,9 +143,7 @@ const CarDetails = () => {
     }, 1200);
   };
 
-  const modelWords = car.model.split(" ");
-  const firstModelWord = modelWords[0];
-  const restModelWords = modelWords.slice(1).join(" ");
+
 
   return (
     <main className="min-h-screen overflow-hidden bg-[#07090e] text-white">
@@ -181,18 +179,10 @@ const CarDetails = () => {
             </p>
 
             <h1 className="max-w-6xl wrap-break-word text-[clamp(2.75rem,13vw,12rem)] font-black uppercase leading-[0.85] tracking-[-0.06em] text-[#F5F0E6]">
-              {firstModelWord}
-              {restModelWords && (
-                <>
-                  <br />
-                  {restModelWords}
-                </>
-              )}
+              {car.model}
             </h1>
 
-            <p className="mt-7 text-base font-semibold text-[#9BB7E5] sm:text-lg md:text-xl">
-              {car.engine} · {car.horsepower} HP
-            </p>
+      
           </div>
 
           {heroImages.length > 1 && (
@@ -220,9 +210,6 @@ const CarDetails = () => {
               ${Number(car.price).toLocaleString()}
             </h2>
 
-            <p className="mt-3 text-xs font-black uppercase tracking-[0.3em] text-[#6F86AA] sm:text-sm">
-              MSRP · Excl. Taxes
-            </p>
           </div>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:flex">
@@ -230,7 +217,7 @@ const CarDetails = () => {
               to="/cars"
               className="flex h-14 items-center justify-center border border-[#263247] px-6 text-center text-xs font-black uppercase tracking-[0.22em] text-white transition hover:border-white sm:h-16 sm:px-10 sm:text-sm"
             >
-              Explore Showroom
+              Explore Cars
             </Link>
 
             <button

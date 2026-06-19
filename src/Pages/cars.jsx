@@ -259,6 +259,11 @@ const Cars = () => {
             </div>
           </div>
 
+
+
+
+          {/* ფილტრაციაა */}
+
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-[340px_1fr] xl:grid-cols-[380px_1fr]">
             <aside className="h-fit rounded-3xl bg-[#10192B]/90 p-8 shadow-[0_5px_20px_#10192B] lg:sticky lg:top-24">
               <div className="flex items-center justify-between">
@@ -444,6 +449,7 @@ const Cars = () => {
                 </div>
               ) : (
                 <>
+                {/* მანქანების რენდერი */}
                   <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,360px),1fr))] justify-items-center gap-6">
                     {paginatedCars.map((car) => {
                       const primaryImg = car.images?.[0] || fallbackImage;

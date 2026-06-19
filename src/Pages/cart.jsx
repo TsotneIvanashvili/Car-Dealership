@@ -41,6 +41,8 @@ const Cart = () => {
     setCart((prevCart) => prevCart.filter((car) => car.id !== id));
   };
 
+
+  // ცარიელი კალათა
   if (cart.length === 0) {
     return (
       <main className="min-h-screen bg-[#07090e] px-6 py-28 text-white md:px-16 lg:px-24">
@@ -70,6 +72,7 @@ const Cart = () => {
   }
 
   return (
+    // კალათა
     <main className="min-h-screen bg-[#07090e] px-6 py-28 text-white md:px-16 lg:px-24">
       <div className="mx-auto max-w-7xl">
         <div className="mb-16">
@@ -206,25 +209,13 @@ const Cart = () => {
               </span>
             </div>
 
-            <div className="mt-10 flex h-14 border border-[#263247]">
-              <input
-                type="text"
-                placeholder="Promo code"
-                className="w-full bg-transparent px-5 text-sm font-semibold text-white outline-none placeholder:text-[#6F86AA]"
-              />
-
-              <button className="border-l border-[#263247] px-6 text-sm font-black uppercase tracking-[0.2em] text-[#3E66FF] transition hover:bg-[#10192A]">
-                Apply
-              </button>
-            </div>
+            
 
             <button className="mt-8 h-16 w-full bg-[#F5F4EA] text-sm font-black uppercase tracking-[0.25em] text-black transition hover:bg-[#3E66FF] hover:text-white">
               Proceed To Checkout
             </button>
 
-            <p className="mt-6 text-center text-sm tracking-wider text-[#6F86AA]">
-              Secured reservation · Fully refundable deposit
-            </p>
+
           </aside>
         </section>
       </div>

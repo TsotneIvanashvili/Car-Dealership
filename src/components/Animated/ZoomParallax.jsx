@@ -53,7 +53,7 @@ const ZoomParallax = ({ images = [] }) => {
                   className="h-full w-full object-cover"
                 />
 
-                <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-white/5"></div>
+                <div className="absolute inset-0 bg-linear-to-t from-black/45 via-transparent to-white/5"></div>
               </div>
             </motion.div>
           );

@@ -197,9 +197,6 @@ const Cars = () => {
     startIndex + carsPerPage,
   );
 
-  const visibleStart = filteredCars.length === 0 ? 0 : startIndex + 1;
-  const visibleEnd = Math.min(startIndex + carsPerPage, filteredCars.length);
-
   return (
     <div className="min-h-screen bg-[#07090e] text-slate-100 antialiased">
       <section className="px-5 pt-16 pb-10 sm:px-6 md:px-12 lg:px-16 xl:px-20">
@@ -219,50 +216,55 @@ const Cars = () => {
               </h1>
             </div>
 
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-stretch">
-              <div className="min-w-42 border border-[#263247] bg-[#0B111D] px-5 py-4">
-                <p className="text-xs font-black uppercase tracking-[0.25em] text-[#8EA6C9]">
-                  Results
-                </p>
+            <div className="flex w-full justify-start lg:w-auto lg:justify-end">
+              <div className="flex w-full flex-col gap-5 rounded-3xl border border-[#263247] bg-[#10192B] px-6 py-5 shadow-[0_18px_50px_rgba(0,0,0,0.35)] sm:flex-row sm:items-center sm:justify-between sm:gap-6 lg:w-auto">
+                <div>
+                  <p className="text-xs font-black uppercase tracking-[0.35em] text-[#3157FF]">
+                    Sort By Price
+                  </p>
 
-                <p className="mt-2 text-2xl font-black text-[#F5F0E6]">
-                  {filteredCars.length} Cars
-                </p>
-              </div>
+                  <p className="mt-2 text-sm font-semibold text-[#8EA6C9]">
+                    Choose price order
+                  </p>
+                </div>
 
-              <div className="min-w-58 border border-[#263247] bg-[#0B111D] px-5 py-4">
-                <label className="block text-xs font-black uppercase tracking-[0.25em] text-[#8EA6C9]">
-                  Sort Price
-                </label>
+                <div className="flex w-full gap-3 sm:w-auto">
+                  <button
+                    onClick={() => updateFilter("sort", "price-asc")}
+                    className={`h-11 flex-1 rounded-xl border px-6 text-sm font-black uppercase tracking-[0.18em] transition sm:flex-none ${
+                      filters.sort === "price-asc"
+                        ? "border-[#3157FF] bg-[#3157FF] text-white"
+                        : "border-[#263247] bg-[#0B111D] text-[#F5F0E6] hover:border-white"
+                    }`}
+                  >
+                    Low
+                  </button>
 
-                <select
-                  value={filters.sort}
-                  onChange={(e) => updateFilter("sort", e.target.value)}
-                  className="mt-2 h-10 w-full border border-[#263247] bg-[#07090e] px-3 text-sm font-black text-[#F5F0E6] outline-none transition focus:border-[#3157FF]"
-                >
-                  <option value="price-asc">Ascending</option>
-                  <option value="price-desc">Descending</option>
-                </select>
+                  <button
+                    onClick={() => updateFilter("sort", "price-desc")}
+                    className={`h-11 flex-1 rounded-xl border px-6 text-sm font-black uppercase tracking-[0.18em] transition sm:flex-none ${
+                      filters.sort === "price-desc"
+                        ? "border-[#3157FF] bg-[#3157FF] text-white"
+                        : "border-[#263247] bg-[#0B111D] text-[#F5F0E6] hover:border-white"
+                    }`}
+                  >
+                    High
+                  </button>
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[300px_1fr] xl:grid-cols-[320px_1fr]">
-            <aside className="h-fit border-y border-[#203049] bg-[#0B111D]/70 lg:sticky lg:top-24 lg:border">
-              <div className="flex items-center justify-between border-b border-[#1D2B42] p-5">
-                <div>
-                  <p className="text-xs font-black uppercase tracking-[0.35em] text-[#3157FF]">
-                    Filters
-                  </p>
-
-                  <p className="mt-2 text-sm font-semibold text-[#8EA6C9]">
-                    Search inventory
-                  </p>
-                </div>
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[340px_1fr] xl:grid-cols-[380px_1fr]">
+            <aside className="h-fit rounded-3xl border border-[#263247] bg-[#10192B]/90 p-8 shadow-[0_18px_50px_rgba(0,0,0,0.35)] lg:sticky lg:top-24">
+              <div className="flex items-center justify-between">
+                <h2 className="text-3xl font-black tracking-tight text-[#F5F0E6]">
+                  Filter Cars
+                </h2>
 
                 <button
                   onClick={() => setFiltersOpen((prev) => !prev)}
-                  className="flex h-10 w-10 items-center justify-center border border-[#263247] text-white transition hover:border-[#3157FF] lg:hidden"
+                  className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#263247] text-white transition hover:border-[#3157FF] lg:hidden"
                 >
                   <i
                     className={`fa-solid fa-chevron-down text-xs transition ${
@@ -272,112 +274,148 @@ const Cars = () => {
                 </button>
               </div>
 
-              <div className={`${filtersOpen ? "block" : "hidden"} lg:block`}>
-                <div className="space-y-6 p-5">
-                  <div>
-                    <label className="mb-3 block text-xs font-black uppercase tracking-[0.3em] text-[#6F86AA]">
-                      Search
-                    </label>
+              <div className="mt-8 h-px w-full bg-[#263247]"></div>
 
-                    <div className="flex h-13 items-center gap-3 border border-[#263247] bg-[#07090e] px-4 transition focus-within:border-[#3157FF]">
-                      <i className="fa-solid fa-magnifying-glass text-[#6F86AA]"></i>
+              <div
+                className={`grid overflow-hidden transition-[grid-template-rows,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] lg:grid-rows-[1fr] lg:opacity-100 ${
+                  filtersOpen
+                    ? "grid-rows-[1fr] opacity-100"
+                    : "grid-rows-[0fr] opacity-0"
+                }`}
+              >
+                <div className="overflow-hidden">
+                  <div className="mt-8 space-y-8">
+                    <div>
+                      <label className="mb-4 block text-xs font-black uppercase tracking-[0.35em] text-[#7E8DA8]">
+                        Search
+                      </label>
 
-                      <input
-                        value={filters.search}
-                        onChange={(e) => updateFilter("search", e.target.value)}
-                        type="text"
-                        placeholder="Brand or model"
-                        className="w-full bg-transparent text-sm font-bold text-white outline-none placeholder:text-[#6F86AA]"
-                      />
+                      <div className="flex h-14 items-center gap-4 rounded-xl border border-[#263247] bg-[#070D19] px-5 transition focus-within:border-[#3157FF]">
+                        <i className="fa-solid fa-magnifying-glass text-sm text-[#6F86AA]"></i>
+
+                        <input
+                          value={filters.search}
+                          onChange={(e) =>
+                            updateFilter("search", e.target.value)
+                          }
+                          type="text"
+                          placeholder="Brand or model"
+                          className="w-full bg-transparent text-base font-semibold text-white outline-none placeholder:text-[#6F86AA]"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="mb-4 block text-xs font-black uppercase tracking-[0.35em] text-[#7E8DA8]">
+                        Brand
+                      </label>
+
+                      <div className="relative">
+                        <select
+                          value={filters.brand}
+                          onChange={(e) =>
+                            updateFilter("brand", e.target.value)
+                          }
+                          className="h-14 w-full appearance-none rounded-xl border border-[#263247] bg-[#070D19] px-5 pr-12 text-base font-black text-[#F5F0E6] outline-none transition focus:border-[#3157FF]"
+                        >
+                          <option value="">All</option>
+                          {brands.map((brand) => (
+                            <option key={brand} value={brand}>
+                              {brand}
+                            </option>
+                          ))}
+                        </select>
+
+                        <i className="fa-solid fa-caret-down pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-xs text-[#8EA6C9]"></i>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="mb-4 block text-xs font-black uppercase tracking-[0.35em] text-[#7E8DA8]">
+                        Year
+                      </label>
+
+                      <div className="relative">
+                        <select
+                          value={filters.year}
+                          onChange={(e) =>
+                            updateFilter("year", e.target.value)
+                          }
+                          className="h-14 w-full appearance-none rounded-xl border border-[#263247] bg-[#070D19] px-5 pr-12 text-base font-black text-[#F5F0E6] outline-none transition focus:border-[#3157FF]"
+                        >
+                          <option value="">Any</option>
+                          {years.map((year) => (
+                            <option key={year} value={year}>
+                              {year}
+                            </option>
+                          ))}
+                        </select>
+
+                        <i className="fa-solid fa-caret-down pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-xs text-[#8EA6C9]"></i>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="mb-4 block text-xs font-black uppercase tracking-[0.35em] text-[#7E8DA8]">
+                        Fuel
+                      </label>
+
+                      <div className="relative">
+                        <select
+                          value={filters.fuelType}
+                          onChange={(e) =>
+                            updateFilter("fuelType", e.target.value)
+                          }
+                          className="h-14 w-full appearance-none rounded-xl border border-[#263247] bg-[#070D19] px-5 pr-12 text-base font-black text-[#F5F0E6] outline-none transition focus:border-[#3157FF]"
+                        >
+                          <option value="">Any</option>
+                          {fuelTypes.map((fuelType) => (
+                            <option key={fuelType} value={fuelType}>
+                              {fuelType}
+                            </option>
+                          ))}
+                        </select>
+
+                        <i className="fa-solid fa-caret-down pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-xs text-[#8EA6C9]"></i>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="mb-4 block text-xs font-black uppercase tracking-[0.35em] text-[#7E8DA8]">
+                        Transmission
+                      </label>
+
+                      <div className="relative">
+                        <select
+                          value={filters.transmission}
+                          onChange={(e) =>
+                            updateFilter("transmission", e.target.value)
+                          }
+                          className="h-14 w-full appearance-none rounded-xl border border-[#263247] bg-[#070D19] px-5 pr-12 text-base font-black text-[#F5F0E6] outline-none transition focus:border-[#3157FF]"
+                        >
+                          <option value="">Any</option>
+                          {transmissions.map((transmission) => (
+                            <option key={transmission} value={transmission}>
+                              {transmission}
+                            </option>
+                          ))}
+                        </select>
+
+                        <i className="fa-solid fa-caret-down pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-xs text-[#8EA6C9]"></i>
+                      </div>
                     </div>
                   </div>
 
-                  <div>
-                    <label className="mb-3 block text-xs font-black uppercase tracking-[0.3em] text-[#6F86AA]">
-                      Brand
-                    </label>
-
-                    <select
-                      value={filters.brand}
-                      onChange={(e) => updateFilter("brand", e.target.value)}
-                      className="h-13 w-full border border-[#263247] bg-[#07090e] px-4 text-sm font-bold text-[#F5F0E6] outline-none transition focus:border-[#3157FF]"
-                    >
-                      <option value="">All Brands</option>
-                      {brands.map((brand) => (
-                        <option key={brand} value={brand}>
-                          {brand}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="mb-3 block text-xs font-black uppercase tracking-[0.3em] text-[#6F86AA]">
-                      Year
-                    </label>
-
-                    <select
-                      value={filters.year}
-                      onChange={(e) => updateFilter("year", e.target.value)}
-                      className="h-13 w-full border border-[#263247] bg-[#07090e] px-4 text-sm font-bold text-[#F5F0E6] outline-none transition focus:border-[#3157FF]"
-                    >
-                      <option value="">Any Year</option>
-                      {years.map((year) => (
-                        <option key={year} value={year}>
-                          {year}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="mb-3 block text-xs font-black uppercase tracking-[0.3em] text-[#6F86AA]">
-                      Fuel
-                    </label>
-
-                    <select
-                      value={filters.fuelType}
-                      onChange={(e) => updateFilter("fuelType", e.target.value)}
-                      className="h-13 w-full border border-[#263247] bg-[#07090e] px-4 text-sm font-bold text-[#F5F0E6] outline-none transition focus:border-[#3157FF]"
-                    >
-                      <option value="">Any Fuel</option>
-                      {fuelTypes.map((fuelType) => (
-                        <option key={fuelType} value={fuelType}>
-                          {fuelType}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="mb-3 block text-xs font-black uppercase tracking-[0.3em] text-[#6F86AA]">
-                      Transmission
-                    </label>
-
-                    <select
-                      value={filters.transmission}
-                      onChange={(e) =>
-                        updateFilter("transmission", e.target.value)
-                      }
-                      className="h-13 w-full border border-[#263247] bg-[#07090e] px-4 text-sm font-bold text-[#F5F0E6] outline-none transition focus:border-[#3157FF]"
-                    >
-                      <option value="">Any Type</option>
-                      {transmissions.map((transmission) => (
-                        <option key={transmission} value={transmission}>
-                          {transmission}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-
-                <div className="border-t border-[#1D2B42] p-5">
                   <button
                     onClick={resetFilters}
-                    className="h-12 w-full border border-[#263247] text-sm font-black uppercase tracking-[0.18em] text-[#F5F0E6] transition hover:border-white hover:bg-white hover:text-black"
+                    className="mt-8 h-13 w-full rounded-xl border border-[#263247] text-sm font-black uppercase tracking-[0.22em] text-[#A7B4CC] transition hover:border-white hover:bg-white hover:text-black"
                   >
-                    Reset
+                    Reset Filters
                   </button>
+
+                  <p className="mt-6 text-center text-sm font-semibold tracking-wide text-[#7E8DA8]">
+                    {filteredCars.length} of {carsData.length} vehicles
+                  </p>
                 </div>
               </div>
             </aside>
@@ -432,7 +470,7 @@ const Cars = () => {
                               }}
                             />
 
-                            <div className="absolute inset-0 bg-linear-to-t from-[#101925] via-transparent to-black/25"></div>
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#101925] via-transparent to-black/25"></div>
 
                             <button
                               type="button"
@@ -510,19 +548,19 @@ const Cars = () => {
                             </div>
 
                             <div className="mt-6">
-                              <p className="text-xs font-black uppercase tracking-[0.22em] text-[#6F86AA]">
+                              <p className="text-right text-xs font-black uppercase tracking-[0.22em] text-[#6F86AA]">
                                 Price
                               </p>
 
-                              <div className="mt-1 flex items-end justify-between gap-4">
+                              <div className="mt-1 flex items-end justify-end gap-4">
                                 <h3 className="text-4xl font-black tracking-tight text-white">
                                   ${Number(car.price).toLocaleString()}
                                 </h3>
-
-                                <p className="pb-1 text-sm font-bold text-[#8EA6C9]">
-                                  ${monthlyPrice}/mo est.
-                                </p>
                               </div>
+
+                              <p className="mt-1 text-right text-sm font-bold text-[#8EA6C9]">
+                                ${monthlyPrice}/mo est.
+                              </p>
                             </div>
 
                             <div className="mt-6 grid grid-cols-[0.9fr_1.1fr] gap-3">
@@ -538,7 +576,7 @@ const Cars = () => {
                                 onClick={() => {
                                   addToCart(car);
                                 }}
-                                className={` cursor-pointer flex h-12 items-center justify-center gap-2 rounded-xl text-sm font-black transition-all duration-300 ${
+                                className={`flex h-12 items-center justify-center gap-2 rounded-xl text-sm font-black transition-all duration-300 ${
                                   isMaxQuantity
                                     ? "cursor-not-allowed border border-[#00E676]/40 bg-[#00E676]/10 text-[#00E676]"
                                     : isAdded

@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getLocal, setLocal } from "../utils/localstorage";
-
-const VIDEO_WEBM = "https://res.cloudinary.com/dgccp9uvu/video/upload/f_webm,q_auto/12085618_3840_2160_25fps_w6mc6u.webm";
+import VideoBackground from "../components/VideoBackground";
 
 
 const SignUp = () => {
@@ -37,16 +36,7 @@ const SignUp = () => {
 
   return (
     <section className="relative min-h-screen w-full overflow-hidden bg-[#0E0F13] text-white flex items-center justify-center ">
-      <video
-        className="absolute inset-0 h-full w-full object-cover pointer-events-none"
-        autoPlay
-        muted
-        loop
-        playsInline
-        aria-hidden="true"
-      >
-        <source src={VIDEO_WEBM} type="video/webm" />
-      </video>
+      <VideoBackground />
 
       <div className="absolute inset-0 bg-linear-to-t from-[#050914] via-transparent to-[#05070d]/60" />
 

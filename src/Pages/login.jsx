@@ -1,9 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { getLocal, setLocal } from "../utils/localstorage";
-
-const VIDEO_WEBM = "https://res.cloudinary.com/dgccp9uvu/video/upload/f_webm,q_auto/12085618_3840_2160_25fps_w6mc6u.webm";
-
-const VIDEO_MP4 = "https://res.cloudinary.com/dgccp9uvu/video/upload/f_mp4,q_auto/12085618_3840_2160_25fps_w6mc6u.mp4";
+import VideoBackground from "../components/VideoBackground";
 
 const Login = () => {
       const navigator = useNavigate()
@@ -44,17 +41,7 @@ const Login = () => {
 
   return (
     <section className="relative min-h-screen w-full overflow-hidden bg-[#0E0F13] text-white flex items-center justify-center px-6">
-      <video
-        className="absolute inset-0 h-full w-full object-cover pointer-events-none"
-        autoPlay
-        muted
-        loop
-        playsInline
-        aria-hidden="true"
-      >
-        <source src={VIDEO_WEBM} type="video/webm" />
-        <source src={VIDEO_MP4} type="video/mp4" />
-      </video>
+      <VideoBackground />
 
       <div className="absolute inset-0 bg-linear-to-t from-[#050914] via-transparent to-[#05070d]/60" />
 
@@ -78,6 +65,7 @@ const Login = () => {
             type="email"
             name="email"
             placeholder="Email Address"
+            required
           />
 
           <input
@@ -85,6 +73,7 @@ const Login = () => {
             type="password"
             name="pass"
             placeholder="Password"
+            required
           />
 
           <div className="flex items-center justify-between text-sm text-[#CBD5E1]">

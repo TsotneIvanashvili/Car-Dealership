@@ -69,6 +69,7 @@ const SignUp = () => {
             placeholder="Full Name"
             type="text"
             name="name"
+            required
           />
 
           <input
@@ -76,6 +77,7 @@ const SignUp = () => {
             type="email"
             name="email"
             placeholder="Email Address"
+            required
           />
 
           <input
@@ -83,6 +85,7 @@ const SignUp = () => {
             type="password"
             name="pass"
             placeholder="Create Password"
+            required
           />
 
           <input
@@ -90,6 +93,7 @@ const SignUp = () => {
             type="password"
             name="confPass"
             placeholder="Confirm Password"
+            required
           />
           
           <input
@@ -97,6 +101,7 @@ const SignUp = () => {
             type="text"
             name="pfp"
             placeholder="Profile Picture (Paste Link)"
+            required
           />
 
           <button className="mt-2 h-14 w-full rounded-md bg-white text-black text-sm font-bold uppercase tracking-[0.25em] transition hover:bg-transparent hover:text-white border border-white cursor-pointer">

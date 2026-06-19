@@ -1,6 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
 import { getLocal, setLocal } from "../utils/localstorage";
-import VideoBackground from "../components/VideoBackground";
 
 const Login = () => {
       const navigator = useNavigate()
@@ -41,8 +40,6 @@ const Login = () => {
 
   return (
     <section className="relative min-h-screen w-full overflow-hidden bg-[#0E0F13] text-white flex items-center justify-center px-6">
-      <VideoBackground />
-
       <div className="absolute inset-0 bg-linear-to-t from-[#050914] via-transparent to-[#05070d]/60" />
 
       <div className="relative z-10 w-full max-w-125 text-center bg-black/25 backdrop-blur-md px-8 py-10 rounded-2xl shadow-2xl shadow-black/50">

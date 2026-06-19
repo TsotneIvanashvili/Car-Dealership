@@ -4,7 +4,6 @@ import { getLocal, setLocal } from "../utils/localstorage";
 
 const VIDEO_WEBM = "https://res.cloudinary.com/dgccp9uvu/video/upload/f_webm,q_auto/12085618_3840_2160_25fps_w6mc6u.webm";
 
-const VIDEO_MP4 = "https://res.cloudinary.com/dgccp9uvu/video/upload/f_mp4,q_auto/12085618_3840_2160_25fps_w6mc6u.mp4";
 
 const SignUp = () => {
   const [users, setUsers] = useState(getLocal("Users") || []);
@@ -47,7 +46,6 @@ const SignUp = () => {
         aria-hidden="true"
       >
         <source src={VIDEO_WEBM} type="video/webm" />
-        <source src={VIDEO_MP4} type="video/mp4" />
       </video>
 
       <div className="absolute inset-0 bg-linear-to-t from-[#050914] via-transparent to-[#05070d]/60" />

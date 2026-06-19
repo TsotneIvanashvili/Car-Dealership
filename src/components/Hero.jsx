@@ -22,9 +22,9 @@ const HeroSection = () => {
         />
       </video>
 
-      <div className="absolute inset-0 z-[1] bg-gradient-to-r from-[#0e0f1398] via-[#0E0F13]/30 to-[#0E0F13]/15" />
+      <div className="absolute inset-0 z-1 bg-linear-to-r from-[#0e0f1398] via-[#0E0F13]/30 to-[#0E0F13]/15" />
 
-      <div className="absolute inset-x-0 bottom-0 z-[2] h-[35vh] bg-gradient-to-t from-[#010619] via-[#010619cc] to-transparent pointer-events-none" />
+      <div className="absolute inset-x-0 bottom-0 z-2 h-[35vh] bg-linear-to-t from-[#010619] via-[#010619cc] to-transparent pointer-events-none" />
 
       <div className="relative z-10 flex h-full flex-col justify-center px-8 md:px-16 lg:px-24">
         <h1

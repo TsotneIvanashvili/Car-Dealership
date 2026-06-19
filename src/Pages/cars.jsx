@@ -221,9 +221,9 @@ const Cars = () => {
             </div>
 
             <div className="flex w-full justify-start lg:w-auto lg:justify-end">
-              <div className="flex w-full flex-col gap-5 rounded-3xl border border-[#263247] bg-[#10192B] px-6 py-5 shadow-[0_18px_50px_rgba(0,0,0,0.35)] sm:flex-row sm:items-center sm:justify-between sm:gap-6 lg:w-auto">
+              <div className="flex w-full flex-col gap-5 rounded-3xl  bg-[#10192B] px-6 py-5 shadow-[0_5px_20px_#10192B] sm:flex-row sm:items-center sm:justify-between sm:gap-6 lg:w-auto">
                 <div>
-                  <p className="text-xs font-black uppercase tracking-[0.35em] text-[#3157FF]">
+                  <p className="text-xs font-black uppercase tracking-[0.35em] text-[#3157ff]">
                     Sort By Price
                   </p>
 
@@ -260,7 +260,7 @@ const Cars = () => {
           </div>
 
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-[340px_1fr] xl:grid-cols-[380px_1fr]">
-            <aside className="h-fit rounded-3xl border border-[#263247] bg-[#10192B]/90 p-8 shadow-[0_18px_50px_rgba(0,0,0,0.35)] lg:sticky lg:top-24">
+            <aside className="h-fit rounded-3xl bg-[#10192B]/90 p-8 shadow-[0_5px_20px_#10192B] lg:sticky lg:top-24">
               <div className="flex items-center justify-between">
                 <h2 className="text-3xl font-black tracking-tight text-[#F5F0E6]">
                   Filter Cars

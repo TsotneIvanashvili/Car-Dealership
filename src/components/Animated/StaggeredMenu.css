@@ -77,8 +77,8 @@
 }
 
 .sm-logo-text {
-  font-size: 1.5rem;
-  font-weight: 900;
+  font-size: 10px;
+  font-weight: 600;
   color: #f5f4f1;
   text-transform: uppercase;
   letter-spacing: 0.25em;
@@ -253,7 +253,7 @@
   color: #fbf7f0;
   text-decoration: none;
 
-  font-size: clamp(3rem, 6vw, 5.8rem);
+  font-size: 90px;
   font-weight: 800;
   line-height: 0.95;
   letter-spacing: -0.06em;

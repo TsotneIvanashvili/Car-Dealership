@@ -31,10 +31,12 @@ const carNames = [
   "PORSCHE",
   "AUDI",
   "LAMBORGHINI",
-  "FERRARI",
+  "FERRARI •",
 ];
 
 const txt = carNames.join("   •   ");
+
+
 
 const RevealText = ({
   children,

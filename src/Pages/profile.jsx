@@ -11,7 +11,10 @@ const Profile = () => {
     location: "Tbilisi, Georgia",
   };
 
-  const savedCars = getLocal("Favorites") || [];
+  const [savedCars, setSavedCars] = useState(() => {
+    return getLocal("Favorites") || [];
+  });
+
   const orders = getLocal("Orders") || [];
 
   const [activeTab, setActiveTab] = useState("saved");
@@ -20,7 +23,18 @@ const Profile = () => {
 
   const logOut = () => {
     localStorage.removeItem("CurrentUser");
+    localStorage.removeItem("Favorites");
+    localStorage.removeItem("Cart");
     navigate("/login");
+  };
+
+  const removeFavorite = (id) => {
+    const updatedFavorites = savedCars.filter(
+      (car) => String(car.id) !== String(id)
+    );
+
+    setSavedCars(updatedFavorites);
+    localStorage.setItem("Favorites", JSON.stringify(updatedFavorites));
   };
 
   const tabClass = (tab) =>
@@ -178,11 +192,13 @@ const Profile = () => {
                             className="h-full w-full object-cover opacity-70 transition duration-500 group-hover:scale-105"
                           />
 
-                          <h3 className="absolute -top-2 right-4 text-5xl font-black uppercase text-white/5">
-                            {car.brand}
-                          </h3>
+                          
 
-                          <button className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center border border-[#263247] bg-[#0B111D]/80 text-[#3E66FF]">
+                          <button
+                            type="button"
+                            onClick={() => removeFavorite(car.id)}
+                            className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center border border-[#263247] bg-[#0B111D]/80 text-[#3E66FF] transition hover:border-red-400 hover:bg-red-500/20 hover:text-red-400"
+                          >
                             <i className="fa-solid fa-heart text-xs"></i>
                           </button>
                         </div>
@@ -282,4 +298,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default Profile; 

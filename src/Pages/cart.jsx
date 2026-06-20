@@ -181,26 +181,11 @@ const Cart = () => {
           </div>
 
           <aside className="h-fit border border-[#203049] bg-[#0B111D] p-8 shadow-2xl shadow-black/40 lg:sticky lg:top-28">
-            <h2 className="mb-10 text-sm font-black uppercase tracking-[0.35em] text-[#8EA6C9]">
-              Order Summary
-            </h2>
+            
 
-            <div className="space-y-7">
-              <div className="flex items-center justify-between text-lg">
-                <span className="text-white">Subtotal</span>
 
-                <span className="font-semibold text-white">
-                  ${subtotal.toLocaleString()}
-                </span>
-              </div>
-
-              
-            </div>
-
-            <div className="my-10 h-px bg-[#263247]"></div>
-
-            <div className="flex items-end justify-between">
-              <span className="text-sm font-black uppercase tracking-[0.25em] text-[#8EA6C9]">
+            <div className="flex items-start justify-start gap-5 flex-col">
+              <span className="text-3xl p-2 font-black uppercase tracking-[0.25em] border-b-2 border-[#203049] w-full text-white">
                 Total
               </span>
 

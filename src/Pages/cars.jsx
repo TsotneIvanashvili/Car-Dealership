@@ -56,7 +56,8 @@ const Cars = () => {
   const addToCart = (car) => {
     const exists = cart.find((item) => item.id === car.id);
 
-    if (exists && exists.quantity >= 2) return;
+    if(getLocal("CurrentUser")){
+      if (exists && exists.quantity >= 2) return;
 
     setCart((prevCart) => {
       const exists = prevCart.find((item) => item.id === car.id);
@@ -73,6 +74,10 @@ const Cars = () => {
     });
 
     showButtonStatus(car.id, "added");
+    }
+    else{
+      alert("Please Log In To Add Products To Cart!")
+    }
   };
 
   const isFavorite = (carId) => {
@@ -235,7 +240,7 @@ const Cars = () => {
                 <div className="flex w-full gap-3 sm:w-auto">
                   <button
                     onClick={() => updateFilter("sort", "price-asc")}
-                    className={`h-11 flex-1 rounded-xl border px-6 text-sm font-black uppercase tracking-[0.18em] transition sm:flex-none ${
+                    className={`h-11 flex-1 cursor-pointer rounded-xl border px-6 text-sm font-black uppercase tracking-[0.18em] transition sm:flex-none ${
                       filters.sort === "price-asc"
                         ? "border-[#3157FF] bg-[#3157FF] text-white"
                         : "border-[#263247] bg-[#0B111D] text-[#F5F0E6] hover:border-white"
@@ -246,7 +251,7 @@ const Cars = () => {
 
                   <button
                     onClick={() => updateFilter("sort", "price-desc")}
-                    className={`h-11 flex-1 rounded-xl border px-6 text-sm font-black uppercase tracking-[0.18em] transition sm:flex-none ${
+                    className={`h-11 flex-1 cursor-pointer rounded-xl border px-6 text-sm font-black uppercase tracking-[0.18em] transition sm:flex-none ${
                       filters.sort === "price-desc"
                         ? "border-[#3157FF] bg-[#3157FF] text-white"
                         : "border-[#263247] bg-[#0B111D] text-[#F5F0E6] hover:border-white"
@@ -309,7 +314,7 @@ const Cars = () => {
                           }
                           type="text"
                           placeholder="Brand or model"
-                          className="w-full bg-transparent text-base font-semibold text-white outline-none placeholder:text-[#6F86AA]"
+                          className="w-full cursor-pointer bg-transparent text-base font-semibold text-white outline-none placeholder:text-[#6F86AA]"
                         />
                       </div>
                     </div>
@@ -325,11 +330,11 @@ const Cars = () => {
                           onChange={(e) =>
                             updateFilter("brand", e.target.value)
                           }
-                          className="h-14 w-full appearance-none rounded-xl border border-[#263247] bg-[#070D19] px-5 pr-12 text-base font-black text-[#F5F0E6] outline-none transition focus:border-[#3157FF]"
+                          className="h-14 w-full cursor-pointer appearance-none rounded-xl border border-[#263247] bg-[#070D19] px-5 pr-12 text-base font-black text-[#F5F0E6] outline-none transition focus:border-[#3157FF]"
                         >
                           <option value="">All</option>
                           {brands.map((brand) => (
-                            <option key={brand} value={brand}>
+                            <option className="cursor-pointer" key={brand} value={brand}>
                               {brand}
                             </option>
                           ))}
@@ -350,7 +355,7 @@ const Cars = () => {
                           onChange={(e) =>
                             updateFilter("year", e.target.value)
                           }
-                          className="h-14 w-full appearance-none rounded-xl border border-[#263247] bg-[#070D19] px-5 pr-12 text-base font-black text-[#F5F0E6] outline-none transition focus:border-[#3157FF]"
+                          className="h-14 cursor-pointer w-full appearance-none rounded-xl border border-[#263247] bg-[#070D19] px-5 pr-12 text-base font-black text-[#F5F0E6] outline-none transition focus:border-[#3157FF]"
                         >
                           <option value="">Any</option>
                           {years.map((year) => (
@@ -365,7 +370,7 @@ const Cars = () => {
                     </div>
 
                     <div>
-                      <label className="mb-4 block text-xs font-black uppercase tracking-[0.35em] text-[#7E8DA8]">
+                      <label className="mb-4  block text-xs font-black uppercase tracking-[0.35em] text-[#7E8DA8]">
                         Fuel
                       </label>
 
@@ -375,7 +380,7 @@ const Cars = () => {
                           onChange={(e) =>
                             updateFilter("fuelType", e.target.value)
                           }
-                          className="h-14 w-full appearance-none rounded-xl border border-[#263247] bg-[#070D19] px-5 pr-12 text-base font-black text-[#F5F0E6] outline-none transition focus:border-[#3157FF]"
+                          className="h-14 w-full cursor-pointer appearance-none rounded-xl border border-[#263247] bg-[#070D19] px-5 pr-12 text-base font-black text-[#F5F0E6] outline-none transition focus:border-[#3157FF]"
                         >
                           <option value="">Any</option>
                           {fuelTypes.map((fuelType) => (
@@ -400,7 +405,7 @@ const Cars = () => {
                           onChange={(e) =>
                             updateFilter("transmission", e.target.value)
                           }
-                          className="h-14 w-full appearance-none rounded-xl border border-[#263247] bg-[#070D19] px-5 pr-12 text-base font-black text-[#F5F0E6] outline-none transition focus:border-[#3157FF]"
+                          className="h-14 w-full cursor-pointer appearance-none rounded-xl border border-[#263247] bg-[#070D19] px-5 pr-12 text-base font-black text-[#F5F0E6] outline-none transition focus:border-[#3157FF]"
                         >
                           <option value="">Any</option>
                           {transmissions.map((transmission) => (
@@ -417,7 +422,7 @@ const Cars = () => {
 
                   <button
                     onClick={resetFilters}
-                    className="mt-8 h-13 w-full rounded-xl border border-[#263247] text-sm font-black uppercase tracking-[0.22em] text-[#A7B4CC] transition hover:border-white hover:bg-white hover:text-black"
+                    className="mt-8 h-13 w-full  rounded-xl border border-[#263247] text-sm font-black cursor-pointer uppercase tracking-[0.22em] text-[#A7B4CC] transition hover:border-white hover:bg-white hover:text-black"
                   >
                     Reset Filters
                   </button>
@@ -554,11 +559,11 @@ const Cars = () => {
                             </div>
 
                             <div className="mt-6">
-                              <p className="text-right text-xs font-black uppercase tracking-[0.22em] text-[#6F86AA]">
+                              <p className="text-left text-xs font-black uppercase tracking-[0.22em] text-[#6F86AA]">
                                 Price
                               </p>
 
-                              <div className="mt-1 flex items-end justify-end gap-4">
+                              <div className="mt-1 flex items-start justify-start gap-4">
                                 <h3 className="text-4xl font-black tracking-tight text-white">
                                   ${Number(car.price).toLocaleString()}
                                 </h3>
@@ -579,7 +584,7 @@ const Cars = () => {
                                 onClick={() => {
                                   addToCart(car);
                                 }}
-                                className={`flex h-12 items-center justify-center gap-2 rounded-xl text-sm font-black transition-all duration-300 ${
+                                className={`flex h-12 items-center justify-center cursor-pointer gap-2 rounded-xl text-sm font-black transition-all duration-300 ${
                                   isMaxQuantity
                                     ? "cursor-not-allowed border border-[#00E676]/40 bg-[#00E676]/10 text-[#00E676]"
                                     : isAdded

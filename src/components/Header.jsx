@@ -42,15 +42,15 @@ const NavBar = () => {
   const socialItems = [
     {
       label: "Instagram",
-      link: "https://instagram.com",
+      link: "https://www.instagram.com/tsottneee_/"
     },
     {
       label: "Facebook",
-      link: "https://facebook.com",
+      link: "https://www.facebook.com/tsotne.ivanashvili.2025",
     },
     {
       label: "LinkedIn",
-      link: "https://linkedin.com",
+      link: "https://www.linkedin.com/in/tsotne-ivanashvili-192b09351/",
     },
   ];
 

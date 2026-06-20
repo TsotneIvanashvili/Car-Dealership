@@ -515,7 +515,7 @@ const StaggeredMenu = ({
                   ) : (
                     <Link
                       to={item.link}
-                      className="sm-panel-item"
+                      className="sm-panel-item " 
                       aria-label={item.ariaLabel}
                       data-index={index + 1}
                       onClick={closeMenu}

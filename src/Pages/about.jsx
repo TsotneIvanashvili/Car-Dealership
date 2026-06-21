@@ -1,20 +1,5 @@
 import WorldMap from "../components/WorldMap";
 
-const cardHeaders = [
-  {
-    title: "Performance",
-    icon: "fa-gauge-high",
-  },
-  {
-    title: "Luxury",
-    icon: "fa-gem",
-  },
-  {
-    title: "Precision",
-    icon: "fa-bullseye",
-  },
-];
-
 const About = () => {
   return (
     <main className="overflow-hidden bg-[#07090e] text-white">

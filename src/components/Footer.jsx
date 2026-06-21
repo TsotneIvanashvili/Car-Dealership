@@ -69,14 +69,6 @@ const Footer = () => {
                   About Us
                 </Link>
               </li>
-              <li>
-                <Link
-                  to="/login"
-                  className="text-[#94A3B8] hover:text-white transition"
-                >
-                  Sign In
-                </Link>
-              </li>
             </ul>
           </div>
 

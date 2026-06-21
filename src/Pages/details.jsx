@@ -48,19 +48,19 @@ const CarDetails = () => {
       horsepower >= 500
         ? "3.5 s"
         : horsepower >= 400
-        ? "4.2 s"
-        : horsepower >= 300
-        ? "5.1 s"
-        : "6.4 s";
+          ? "4.2 s"
+          : horsepower >= 300
+            ? "5.1 s"
+            : "6.4 s";
 
     const topSpeed =
       horsepower >= 500
         ? "290 km/h"
         : horsepower >= 400
-        ? "270 km/h"
-        : horsepower >= 300
-        ? "245 km/h"
-        : "220 km/h";
+          ? "270 km/h"
+          : horsepower >= 300
+            ? "245 km/h"
+            : "220 km/h";
 
     const transmission =
       car.transmission === "Manual" ? "6-speed Manual" : "8-speed Automatic";
@@ -69,8 +69,8 @@ const CarDetails = () => {
       car.fuelType === "Electric"
         ? "Dual Motor AWD"
         : horsepower >= 400
-        ? "Rear-wheel drive"
-        : "Front-wheel drive";
+          ? "Rear-wheel drive"
+          : "Front-wheel drive";
 
     return [
       {
@@ -129,7 +129,7 @@ const CarDetails = () => {
         return prevCart.map((item) =>
           item.id === car.id
             ? { ...item, quantity: Math.min(item.quantity + 1, 2) }
-            : item
+            : item,
         );
       }
 
@@ -142,8 +142,6 @@ const CarDetails = () => {
       setAdded(false);
     }, 1200);
   };
-
-
 
   return (
     <main className="min-h-screen overflow-hidden bg-[#07090e] text-white">
@@ -163,8 +161,6 @@ const CarDetails = () => {
           ))}
         </div>
 
-
-
         <div className="relative z-20 mx-auto flex min-h-[calc(92vh-6rem)] max-w-7xl flex-col justify-between pb-10 sm:min-h-[calc(100vh-6rem)]">
           <Link
             to="/cars"
@@ -181,8 +177,6 @@ const CarDetails = () => {
             <h1 className="max-w-6xl wrap-break-word text-[clamp(2.75rem,13vw,12rem)] font-black uppercase leading-[0.85] tracking-[-0.06em] text-[#F5F0E6]">
               {car.model}
             </h1>
-
-      
           </div>
 
           {heroImages.length > 1 && (
@@ -209,7 +203,6 @@ const CarDetails = () => {
             <h2 className="text-4xl font-black tracking-tight text-[#F5F0E6] sm:text-5xl md:text-6xl">
               ${Number(car.price).toLocaleString()}
             </h2>
-
           </div>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:flex">
@@ -227,19 +220,19 @@ const CarDetails = () => {
                 isMaxQuantity
                   ? "cursor-not-allowed border border-[#00E676]/40 bg-[#00E676]/15 text-[#00E676]"
                   : added
-                  ? "bg-[#00E676] text-black shadow-[0_0_24px_rgba(0,230,118,0.45)]"
-                  : isInCart
-                  ? "bg-[#F5F0E6] text-black hover:bg-[#00E676]"
-                  : "bg-[#F5F0E6] text-black hover:bg-[#3157FF] hover:text-white"
+                    ? "bg-[#00E676] text-black shadow-[0_0_24px_rgba(0,230,118,0.45)]"
+                    : isInCart
+                      ? "bg-[#F5F0E6] text-black hover:bg-[#00E676]"
+                      : "bg-[#F5F0E6] text-black hover:bg-[#3157FF] hover:text-white"
               }`}
             >
               {isMaxQuantity
                 ? "Max Quantity Reached"
                 : added
-                ? "Added ✓"
-                : isInCart
-                ? "Add One More"
-                : "Add To Cart"}
+                  ? "Added ✓"
+                  : isInCart
+                    ? "Add One More"
+                    : "Add To Cart"}
             </button>
           </div>
         </div>

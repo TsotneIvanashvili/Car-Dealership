@@ -36,8 +36,6 @@ const carNames = [
 
 const txt = carNames.join("   •   ");
 
-
-
 const RevealText = ({
   children,
   as: Tag = "div",
@@ -58,7 +56,7 @@ const RevealText = ({
       },
       {
         threshold: 0.3,
-      }
+      },
     );
 
     if (textRef.current) {
@@ -99,10 +97,6 @@ const HomePage = () => {
     <div className="min-h-screen overflow-x-hidden bg-[#0E0F13] text-[#F5F4F1]">
       <HeroSection />
 
-
-
-      
-
       <section className="relative overflow-hidden bg-[#16181F]">
         <div
           className="pointer-events-none absolute inset-x-0 top-0 h-64 opacity-[0.07]"
@@ -139,11 +133,8 @@ const HomePage = () => {
         </div>
       </section>
 
-
       <div className="relative h-screen w-full overflow-hidden bg-[#0E0F13]">
-
-                      <div className="absolute inset-0 bg-linear-to-b z-2 h-90 from-[#010619f9]"  />
-
+        <div className="absolute inset-0 bg-linear-to-b z-2 h-90 from-[#010619f9]" />
 
         {cars.map((car, i) => (
           <div
@@ -201,14 +192,6 @@ const HomePage = () => {
           ))}
         </div>
       </div>
-      
-      
-
-
-
-       
-
-      
     </div>
   );
 };
